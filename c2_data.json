@@ -1,685 +1,683 @@
 {
-    "telegram": {
-      "descriptionUrl": "doc/telegram.md",
-      "c2Projects": [
-        "https://github.com/3ct0s/disctopia-c2",
-        "https://github.com/timebotdon/telegram-c2agent",
-        "https://github.com/SpenserCai/DRat",
-        "https://github.com/kensh1ro/NativeTeleBackdoor",
-        "https://github.com/Lemonada/teleBrat",
-        "https://github.com/woj-ciech/Social-media-c2",
-        "https://github.com/machine1337/TelegramRAT",
-        "https://github.com/1N73LL1G3NC3x/Nightmangle",
-        "https://github.com/itaymigdal/Poshito",
-        "https://github.com/govindasamyarun/c2-cloud"
-      ], 
-      "detection": [
-        "url: https://api.telegram.org/bot*"
-      ]
-    },
-    "CounterStrike 1.6": {
-      "descriptionUrl": "doc/counterstrike.md",
-      "c2Projects": [
-        "https://github.com/eversinc33/1.6-C2"
-      ],
-      "detection": [
-        "Unusual outbound UDP traffic on port 27015",
-        "Source RCON protocol documentation: https://developer.valvesoftware.com/wiki/Source_RCON_Protocol"
-      ]
-    },
-    "cloudflare": {
-      "descriptionUrl": "doc/cloudflare.md",
-      "c2Projects": [
-        "https://github.com/ChoiSG/CloudflarePagesRedirector",
-        "https://github.com/som3canadian/Cloudflare-Redirector",
-        "https://github.com/nickvourd/SkyFall-Pack"
-      ],
-      "detection": [
-        "Cloudflare Tunnels: *.cfargotunnel.com",
-        "Cloudflare Workers and Apps: https://*.*.workers.dev",
-        "Cloudflare DoH: https://cloudflare-dns.com/dns-query",
-        "blog: https://labs.jumpsec.com/putting-the-c2-in-c2loudflare/",
-        "comment: Keep an eye on DNS queries for subdomains of cfargotunnel.com and workers.dev that don't align with normal business operations",
-        "[CloudflarePagesRedirector] In this project the default user-agents strings ('ligoloua' & 'sliverua') serve as identifiers for implants to communicate with their respective backends"
-      ]
-    },
-    "Strava": {
-      "descriptionUrl": "doc/strava.md",
-      "c2Projects": [
-        "https://github.com/BongoKnight/ConceptC2"
-      ],
-      "detection": [
-        "url: http://www.strava.com/oauth/authorize?client_id=*",
-        "url: https://www.strava.com/oauth/token",
-        "url: POST & GET https://www.strava.com/api/v3/activities",
-        "url: PUT & GET https://www.strava.com/api/v3/activities/*"
-      ]
-    },
-    "Google Translate": {
-      "descriptionUrl": "doc/google_translate.md",
-      "c2Projects": [
-        "https://github.com/UnkL4b/BabyShark",
-        "https://github.com/mthbernardes/GTRS"
-      ],
-      "detection": [
-        "[BabyShark] User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
-        "[BabyShark] url: */momyshark?key=*",
-        "[BabyShark] file created: /tmp/input",
-        "[BabyShark] file created: /tmp/output",
-        "[BabyShark] detection blog: https://nasbench.medium.com/understanding-detecting-c2-frameworks-babyshark-641be4595845",
-        "url: https://translate.google.com/translate?&anno=2&u=*",
-        "url: https://*.translate.goog",
-        "High-frequency polling of a specific translated site",
-        "Base64 payloads in translated sites url"
-      ]
-    },
-    "mastodon": {
-      "descriptionUrl": "doc/mastodon.md",
-      "c2Projects": [
-        "https://github.com/g0h4n/REC2"
-      ],
-      "detection": [
-         "GET url: https://mastodon.be/username_fzihfzuhfuoz/109743339821428173",
-         "GET url: https://mastodon.be/api/v1/statuses/*/context",
-         "POST url: https://mastodon.be/api/v1/statuses"    
-      ]
-    },
-    "whatsapp": {
-      "descriptionUrl": "doc/whatsapp.md",
-      "c2Projects": [
-        "https://github.com/KarimJedda/whatsappcli"
-      ],
-      "detection": [
-        "HTTP - POST url: https://v.whatsapp.net/v2/register",
-        "HTTP - POST url: https://v.whatsapp.net/v2/exist",
-        "XMPP - connection and messaging routing: c.whatsapp.net - s.whatsapp.net - e1.whatsapp.net - e2.whatsapp.net - e3.whatsapp.net - e4.whatsapp.net - e5.whatsapp.net - e6.whatsapp.net - e7.whatsapp.net - e8.whatsapp.net - e9.whatsapp.net - e10.whatsapp.net - e11.whatsapp.net - e12.whatsapp.net - e13.whatsapp.net - e14.whatsapp.net - e15.whatsapp.net - e16.whatsapp.net",
-        "XMPP - Media server for image/file transfers: mms.whatsapp.net",
-        "Detection logic: Unusual XMPP traffic to c.whatsapp.net and eX.whatsapp.net from a non-mobile device",
-        "Detection logic: Unusual volume of inbound/outbound XMPP traffic",
-        "Detection logic: Excessive outbound media uploads to mms.whatsapp.net",
-        "Detection logic: Presence of Yowsup or whatsapp-web.js automation scripts on a system"
-      ]
-    },
-    "Microsoft Printer": {
-      "descriptionUrl": "doc/microsoft_printer.md",
-      "c2Projects": [
-        "https://github.com/Diverto/IPPrintC2"
-      ],
-      "detection": [
-        "detection strategy: unusual printer jobs name - base64 strings and long fragmented document names",
-        "detection strategy: unusual printer creation and jobs in Microsoft-Windows-PrintService/Operational logs",
-        "detection strategy: Microsoft-Windows-PrintService/Operational Event ID 300 for a printer with an external IP",
-        "detection strategy: repeated or scheduled polling of /printers/ endpoints from client machines",
-        "detection strategy: unusual process spawned from spoolsv.exe such as cmd.exe, powershell.exe, or wscript.exe",
-        "detection patterns: https://github.com/mthcht/ThreatHunting-Keywords/tree/main/tools/I-K/IPPrintC2.csv"
-      ]
-    },
-    "Microsoft Azure Application Proxy": {
-      "descriptionUrl": "doc/azure_application_proxy.md",
-      "c2Projects": [
-        "https://github.com/xpn/AppProxyC2"
-      ],
-      "detection": [
-        "url: https://*.msappproxy.net/*",
-        "url: https://login.microsoftonline.com/common/oauth2/authorize?resource=https%3A%2F%2Fproxy.cloudwebappproxy.net%2Fregisterapp&client_id=*",
-        "[AppProxyC2] User-agent: ApplicationProxyConnector/1.5.1975.0",
-        "[AppProxyC2] User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:81.0) Gecko/20100101 Firefox/81.0"
-      ]
-    },
-    "asana": {
-      "descriptionUrl": "doc/asana.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/AsanaApi/AsanaApi.cpp"
-      ],
-      "detection": [
-        "url: https://app.asana.com/api/1.0/projects/*",
-        "url: https://app.asana.com/api/1.0/tasks/*",
-        "url: https://app.asana.com/api/1.0/attachments/*",
-        "url: https://app.asana.com/api/1.0/sections/"
-      ]
-    },
-    "x": {
-      "descriptionUrl": "doc/x.md",
-      "c2Projects": [
-        "https://github.com/lolc2/XC2"
-      ],
-      "detection": [
-        "url: https://api.x.com/2/*",
-        "url: https://api.x.com/2/tweets",
-        "url: https://api.x.com/2/dm_conversations/with/*/messages",
-        "url: https://api.x.com/2/users/*/tweets",
-        "url: https://api.x.com/2/dm_conversations",
-        "url: https://api.x.com/2/users/me",
-        "url: https://api.x.com/2/lists",
-        "url: https://api.x.com/2/tweets/*",
-        "detection strategy: High-frequency GETs to /users/<id>/tweets or /dm_conversations",
-        "detection strategy: POSTs to /tweets or /dm_conversations/with/<id>/messages",
-        "detection strategy: PATCH requests to /users/me with structured bio updates."
-      ]
-    },
-    "onedrive": {
-      "descriptionUrl": "doc/onedrive.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/OneDrive365RestFile.cpp",
-        "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/onedrive.py",
-        "https://github.com/grantok/Excel-C2",
-        "https://github.com/RedSiege/GraphStrike"
-      ],
-      "detection": [
-        "url: https://graph.microsoft.com/v1.0/me/drive/root:/*",
-        "url: https://graph.microsoft.com/v1.0/users/*/drive/root:/*",
-        "url: https://graph.microsoft.com/v1.0/me/drive/items/*",
-        "url: https://graph.microsoft.com/v1.0/sites/*/drives",
-        "url: https://graph.microsoft.com/v1.0/me/drive/root/children",
-        "url: https://api.onedrive.com/v1.0/shares/*/driveitem/content",
-        "url: https://login.windows.net/organizations/oauth2/v2.0/token",
-        "[empire] User-agent: Microsoft SkyDriveSync 17.005.0107.0008 ship; Windows NT 10.0 (16299)",
-        "[Excel-C2] User-agent: GoLang Client"
-      ]
-    },
-    "Microsoft Tasks": {
-      "descriptionUrl": "doc/tasks.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Outlook365RestTask.cpp"
-      ],
-      "detection": [
-        "url: https://outlook.office.com/api/v2.0/me/tasks/*",
-        "url: https://outlook.office.com/api/v2.0/me/tasks",
-        "url: https://login.windows.net/organizations/oauth2/v2.0/token/*"
-      ]
-    },
-    "jira": {
-      "descriptionUrl": "doc/jira.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Atlassian/JiraApi.cpp"
-      ],
-      "detection": [
-        "url: https://*.atlassian.net/rest/api/2/issue/*",
-        "url: https://*.atlassian.net/rest/api/2/search?jql=project=*",
-        "url: https://*.atlassian.net/rest/api/2/attachment/*"
-      ]
-    },
-    "twitter": {
-      "descriptionUrl": "doc/twitter.md",
-      "c2Projects": [
-        "https://github.com/ZeroDollarSecurity/LarryChatter",
-        "https://github.com/PaulSec/twittor",
-        "https://github.com/woj-ciech/Social-media-c2"
-      ],
-      "detection": [
-        "url: https://api.twitter.com/1*",
-        "url: https://api.twitter.com/2*",
-        "url: https://upload.twitter.com/",
-        "url: https://api.twitter.com/oauth*"
-      ]
-    },
-    "gmail": {
-      "descriptionUrl": "doc/gmail.md",
-      "c2Projects": [
-        "https://github.com/byt3bl33d3r/gcat",
-        "https://github.com/machine1337/gmailc2",
-        "https://github.com/reveng007/SharpGmailC2",
-        "https://github.com/rschwass/PSGSHELL",
-        "https://github.com/shanefarris/GmailBackdoor"
-      ],
-      "detection": [
-        "url: https://www.googleapis.com/gmail/*",
-        "url: https://www.googleapis.com/auth/*",
-        "Anomalous increase in DNS calls to imap.google.com"
-      ]
-    },
-    "slack": {
-      "descriptionUrl": "doc/slack.md",
-      "c2Projects": [
-        "https://github.com/Coalfire-Research/Slackor",
-        "https://github.com/bkup/SlackShell",
-        "https://github.com/praetorian-inc/slack-c2bot",
-        "https://github.com/j3ssie/c2s",
-        "https://github.com/herwonowr/slackhell",
-        "https://github.com/Yihsiwei/slack-c2-golang",
-        "https://github.com/MythicC2Profiles/slack",
-        "https://github.com/Cainor/Shlack-C2",
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Slack.cpp",
-        "https://github.com/mthcht/StringHunter-triage/blob/main/_results_PeriscopeC2_/Periscope-main.7z"
-      ],
-      "detection": [
-        "url: https://slack.com/api/*",
-        "url: https://api.slack.com/apps/*",
-        "url: https://slack.com/api/chat.postMessage",
-        "url: https://slack.com/api/conversations.list?exclude_archived=true",
-        "url: https://slack.com/api/conversations.create",
-        "url: https://slack.com/api/conversations.replies?channel=*",
-        "url: https://slack.com/api/conversations.history?limit=200&channel=*",
-        "url: https://slack.com/api/chat.update",
-        "url: https://slack.com/api/chat.postMessage",
-        "url: https://slack.com/api/chat.delete",
-        "url: https://slack.com/api/files.upload?*&channels=*&thread_ts=*"
-      ]
-    },
-    "cisco webex": {
-      "descriptionUrl": "doc/webex.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/compare/master...tvgdb:C3:cisco-webex-teams-channel"
-      ],
-      "detection": [
-        "url: https://*/v1/access_token",
-        "url: https://*/v1/messages",
-        "url: https://*/v1/messages?max=*&roomId=*",
-        "url: https://*/v1/messages/*",
-        "url: https://*/v1/rooms"
-      ]
-    },
-    "DuckDuckGO": {
-      "descriptionUrl": "doc/duckduckgo.md",
-      "c2Projects": [
-        "https://github.com/nopcorn/DuckDuckC2"
-      ],
-      "detection": [
-        "url: https://proxy.duckduckgo.com/iu/?u=",
-        "url: https://*.pythonanywhere.com/image.jpg?cmd=*"
-      ]
-    },
-    "Microsoft Graph": {
-      "descriptionUrl": "doc/graphapi.md",
-      "c2Projects": [
-        "https://github.com/RedSiege/GraphStrike",
-        "https://github.com/grantok/Excel-C2",
-        "https://github.com/boku7/azureOutlookC2",
-        "https://github.com/NTT-Security-Japan/pac2",
-        "https://github.com/looCiprian/GC2-sheet",
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/OneDrive365RestFile.cpp",
-        "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/onedrive.py"
-      ],
-      "detection": [
-        "url: https://graph.microsoft.com/beta/*metadata#chats",
-        "url: https://graph.microsoft.com/beta/*metadata#teams*/channels*/messages",
-        "url: https://graph.microsoft.com/v1.0/*metadata#chats*/members",
-        "url: https://graph.microsoft.com/v1.0/*metadata#teams*",
-        "url: https://graph.microsoft.com/v1.0/drives/*/items/*/workbook/worksheets",
-        "url: https://graph.microsoft.com/v1.0/users/*/drive/root:/*",
-        "url: https://graph.microsoft.com/v1.0/me/MailFolders/drafts/messages",
-        "url: https://graph.microsoft.com/v1.0/me/drive/items/*/content",
-        "url: https://graph.microsoft.com/v1.0/me/drive/root/children",
-        "url: https://graph.microsoft.com/v1.0/me/messages",
-        "url: https://graph.microsoft.com/v1.0/me",
-        "url: https://graph.microsoft.com/v1.0/me/chats",
-        "url: https://graph.microsoft.com/v1.0/sites/*/drive/items/*/content",
-        "url: https://graph.microsoft.com/v1.0/sites/*/drives",
-        "url: https://graph.microsoft.com/v1.0/sites/*/lists/*",
-        "url: https://graph.microsoft.com/v1.0/sites/*/lists/*/items/",
-        "url: https://graph.microsoft.com/v1.0/sites/root",
-        "url: https://login.microsoftonline.com/*/oauth2/v2.0/token",
-        "[graphstrike server] User-agent: Mozilla/6.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
-        "[Graphstrike] file name: file name containing the string pD9-tK in O365 logs https://x.com/Octoberfest73/status/1896595415883292920"
-      ]
-    },
-    "Microsoft outlook": {
-      "descriptionUrl": "doc/outlook.md",
-      "c2Projects": [
-        "https://github.com/trustedsec/specula",
-        "https://github.com/boku7/azureOutlookC2"
-      ],
-      "detection": [
-        "[specula] - User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; Specula; Microsoft Outlook*",
-        "[Specula] - detection patterns https://github.com/mthcht/ThreatHunting-Keywords/blob/main/tools/R-T/specula.csv",
-        "[azureOutlookC2] url: https://login.microsoftonline.com/*/oauth2/token?api-version=1.0",
-        "[azureOutlookC2] url: https://graph.microsoft.com/v1.0/me/MailFolders/drafts/messages",
-        "[azureOutlookC2] url: https://graph.microsoft.com/v1.0/me/messages",
-        "[azureOutlookC2] email recipient: Bobby.Cooke@0xBoku.com",
-        "[azureOutlookC2] email subject: 'Azure Outlook Command & Control'",
-        "[azureOutlookC2] User-Agent: 'Mozilla'"
-      ]
-    },
-    "Microsoft Power Automate": {
-      "descriptionUrl": "doc/power_automate.md",
-      "c2Projects": [
-        "https://github.com/NTT-Security-Japan/pac2"
-      ],
-      "detection": [
-        "url: https://graph.microsoft.com/v1.0/*metadata#teams*",
-        "url: https://graph.microsoft.com/v1.0/*metadata#chats*/members",
-        "url: https://graph.microsoft.com/beta/*metadata#chats",
-        "url: https://graph.microsoft.com/beta/*metadata#teams*/channels*/messages",
-        "url: https://www.dropbox.com/cli_link_nonce?nonce=f*",
-        "url: https://content.dropboxapi.com/2/files/upload",
-        "url: https://api.dropboxapi.com/2/files/download",
-        "[pac2] url: http://dummy.pac2.localhost:9999",
-        "[pac2] url: http://localhost:9999/login",
-        "[pac2] url: http://localhost:9999/register",
-        "[pac2] url: http://localhost:9999/portal",
-        "[pac2] url: */providers/Microsoft.PowerApps/apis/shared_flowmanagement",
-        "[pac2] url: */providers/Microsoft.PowerApps/apis/shared_dropbox",
-        "[pac2] url: *pac2/*/upload/connections.json",
-        "[pac2] url: *pac2/*/payload",
-        "[pac2] url: https://make.powerautomate.com",
-        "[pac2] url: */portal/client/payload",
-        "[pac2] url: */api/teams/messages?channel_id=*",
-        "[pac2] url: */portal/teams?client_id=*",
-        "[pac2] url: */api/teams/chats",
-        "[pac2] url: */api/teams/channels",
-        "[pac2] url: */api/teams/messages",
-        "[pac2] url: */api/teams/graph",
-        "[pac2] url: */teams/chat_members",
-        "[pac2] User-Agent: azure-logic-apps/1.0",
-        "[pac2] file: */mount/dropbox/Dropbox/pac2",
-        "[pac2] file: /c2_access.log"
-      ]
-    },
-    "Microsoft Azure Functions": {
-      "descriptionUrl": "doc/azure_functions.md",
-      "c2Projects": [
-        "https://github.com/RedSiege/FunctionalC2",
-
-https://github.com/dmcxblue/AzureFunctionRedirector,
+  "telegram": {
+    "descriptionUrl": "doc/telegram.md",
+    "c2Projects": [
+      "https://github.com/3ct0s/disctopia-c2",
+      "https://github.com/timebotdon/telegram-c2agent",
+      "https://github.com/SpenserCai/DRat",
+      "https://github.com/kensh1ro/NativeTeleBackdoor",
+      "https://github.com/Lemonada/teleBrat",
+      "https://github.com/woj-ciech/Social-media-c2",
+      "https://github.com/machine1337/TelegramRAT",
+      "https://github.com/1N73LL1G3NC3x/Nightmangle",
+      "https://github.com/itaymigdal/Poshito",
+      "https://github.com/govindasamyarun/c2-cloud"
+    ],
+    "detection": [
+      "url: https://api.telegram.org/bot*"
+    ]
+  },
+  "CounterStrike 1.6": {
+    "descriptionUrl": "doc/counterstrike.md",
+    "c2Projects": [
+      "https://github.com/eversinc33/1.6-C2"
+    ],
+    "detection": [
+      "Unusual outbound UDP traffic on port 27015",
+      "Source RCON protocol documentation: https://developer.valvesoftware.com/wiki/Source_RCON_Protocol"
+    ]
+  },
+  "cloudflare": {
+    "descriptionUrl": "doc/cloudflare.md",
+    "c2Projects": [
+      "https://github.com/ChoiSG/CloudflarePagesRedirector",
+      "https://github.com/som3canadian/Cloudflare-Redirector",
+      "https://github.com/nickvourd/SkyFall-Pack"
+    ],
+    "detection": [
+      "Cloudflare Tunnels: *.cfargotunnel.com",
+      "Cloudflare Workers and Apps: https://*.*.workers.dev",
+      "Cloudflare DoH: https://cloudflare-dns.com/dns-query",
+      "blog: https://labs.jumpsec.com/putting-the-c2-in-c2loudflare/",
+      "comment: Keep an eye on DNS queries for subdomains of cfargotunnel.com and workers.dev that don't align with normal business operations",
+      "[CloudflarePagesRedirector] In this project the default user-agents strings ('ligoloua' & 'sliverua') serve as identifiers for implants to communicate with their respective backends"
+    ]
+  },
+  "Strava": {
+    "descriptionUrl": "doc/strava.md",
+    "c2Projects": [
+      "https://github.com/BongoKnight/ConceptC2"
+    ],
+    "detection": [
+      "url: http://www.strava.com/oauth/authorize?client_id=*",
+      "url: https://www.strava.com/oauth/token",
+      "url: POST & GET https://www.strava.com/api/v3/activities",
+      "url: PUT & GET https://www.strava.com/api/v3/activities/*"
+    ]
+  },
+  "Google Translate": {
+    "descriptionUrl": "doc/google_translate.md",
+    "c2Projects": [
+      "https://github.com/UnkL4b/BabyShark",
+      "https://github.com/mthbernardes/GTRS"
+    ],
+    "detection": [
+      "[BabyShark] User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36",
+      "[BabyShark] url: */momyshark?key=*",
+      "[BabyShark] file created: /tmp/input",
+      "[BabyShark] file created: /tmp/output",
+      "[BabyShark] detection blog: https://nasbench.medium.com/understanding-detecting-c2-frameworks-babyshark-641be4595845",
+      "url: https://translate.google.com/translate?&anno=2&u=*",
+      "url: https://*.translate.goog",
+      "High-frequency polling of a specific translated site",
+      "Base64 payloads in translated sites url"
+    ]
+  },
+  "mastodon": {
+    "descriptionUrl": "doc/mastodon.md",
+    "c2Projects": [
+      "https://github.com/g0h4n/REC2"
+    ],
+    "detection": [
+      "GET url: https://mastodon.be/username_fzihfzuhfuoz/109743339821428173",
+      "GET url: https://mastodon.be/api/v1/statuses/*/context",
+      "POST url: https://mastodon.be/api/v1/statuses"
+    ]
+  },
+  "whatsapp": {
+    "descriptionUrl": "doc/whatsapp.md",
+    "c2Projects": [
+      "https://github.com/KarimJedda/whatsappcli"
+    ],
+    "detection": [
+      "HTTP - POST url: https://v.whatsapp.net/v2/register",
+      "HTTP - POST url: https://v.whatsapp.net/v2/exist",
+      "XMPP - connection and messaging routing: c.whatsapp.net - s.whatsapp.net - e1.whatsapp.net - e2.whatsapp.net - e3.whatsapp.net - e4.whatsapp.net - e5.whatsapp.net - e6.whatsapp.net - e7.whatsapp.net - e8.whatsapp.net - e9.whatsapp.net - e10.whatsapp.net - e11.whatsapp.net - e12.whatsapp.net - e13.whatsapp.net - e14.whatsapp.net - e15.whatsapp.net - e16.whatsapp.net",
+      "XMPP - Media server for image/file transfers: mms.whatsapp.net",
+      "Detection logic: Unusual XMPP traffic to c.whatsapp.net and eX.whatsapp.net from a non-mobile device",
+      "Detection logic: Unusual volume of inbound/outbound XMPP traffic",
+      "Detection logic: Excessive outbound media uploads to mms.whatsapp.net",
+      "Detection logic: Presence of Yowsup or whatsapp-web.js automation scripts on a system"
+    ]
+  },
+  "Microsoft Printer": {
+    "descriptionUrl": "doc/microsoft_printer.md",
+    "c2Projects": [
+      "https://github.com/Diverto/IPPrintC2"
+    ],
+    "detection": [
+      "detection strategy: unusual printer jobs name - base64 strings and long fragmented document names",
+      "detection strategy: unusual printer creation and jobs in Microsoft-Windows-PrintService/Operational logs",
+      "detection strategy: Microsoft-Windows-PrintService/Operational Event ID 300 for a printer with an external IP",
+      "detection strategy: repeated or scheduled polling of /printers/ endpoints from client machines",
+      "detection strategy: unusual process spawned from spoolsv.exe such as cmd.exe, powershell.exe, or wscript.exe",
+      "detection patterns: https://github.com/mthcht/ThreatHunting-Keywords/tree/main/tools/I-K/IPPrintC2.csv"
+    ]
+  },
+  "Microsoft Azure Application Proxy": {
+    "descriptionUrl": "doc/azure_application_proxy.md",
+    "c2Projects": [
+      "https://github.com/xpn/AppProxyC2"
+    ],
+    "detection": [
+      "url: https://*.msappproxy.net/*",
+      "url: https://login.microsoftonline.com/common/oauth2/authorize?resource=https%3A%2F%2Fproxy.cloudwebappproxy.net%2Fregisterapp&client_id=*",
+      "[AppProxyC2] User-agent: ApplicationProxyConnector/1.5.1975.0",
+      "[AppProxyC2] User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:81.0) Gecko/20100101 Firefox/81.0"
+    ]
+  },
+  "asana": {
+    "descriptionUrl": "doc/asana.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/AsanaApi/AsanaApi.cpp"
+    ],
+    "detection": [
+      "url: https://app.asana.com/api/1.0/projects/*",
+      "url: https://app.asana.com/api/1.0/tasks/*",
+      "url: https://app.asana.com/api/1.0/attachments/*",
+      "url: https://app.asana.com/api/1.0/sections/"
+    ]
+  },
+  "x": {
+    "descriptionUrl": "doc/x.md",
+    "c2Projects": [
+      "https://github.com/lolc2/XC2"
+    ],
+    "detection": [
+      "url: https://api.x.com/2/*",
+      "url: https://api.x.com/2/tweets",
+      "url: https://api.x.com/2/dm_conversations/with/*/messages",
+      "url: https://api.x.com/2/users/*/tweets",
+      "url: https://api.x.com/2/dm_conversations",
+      "url: https://api.x.com/2/users/me",
+      "url: https://api.x.com/2/lists",
+      "url: https://api.x.com/2/tweets/*",
+      "detection strategy: High-frequency GETs to /users/<id>/tweets or /dm_conversations",
+      "detection strategy: POSTs to /tweets or /dm_conversations/with/<id>/messages",
+      "detection strategy: PATCH requests to /users/me with structured bio updates."
+    ]
+  },
+  "onedrive": {
+    "descriptionUrl": "doc/onedrive.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/OneDrive365RestFile.cpp",
+      "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/onedrive.py",
+      "https://github.com/grantok/Excel-C2",
+      "https://github.com/RedSiege/GraphStrike"
+    ],
+    "detection": [
+      "url: https://graph.microsoft.com/v1.0/me/drive/root:/*",
+      "url: https://graph.microsoft.com/v1.0/users/*/drive/root:/*",
+      "url: https://graph.microsoft.com/v1.0/me/drive/items/*",
+      "url: https://graph.microsoft.com/v1.0/sites/*/drives",
+      "url: https://graph.microsoft.com/v1.0/me/drive/root/children",
+      "url: https://api.onedrive.com/v1.0/shares/*/driveitem/content",
+      "url: https://login.windows.net/organizations/oauth2/v2.0/token",
+      "[empire] User-agent: Microsoft SkyDriveSync 17.005.0107.0008 ship; Windows NT 10.0 (16299)",
+      "[Excel-C2] User-agent: GoLang Client"
+    ]
+  },
+  "Microsoft Tasks": {
+    "descriptionUrl": "doc/tasks.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Outlook365RestTask.cpp"
+    ],
+    "detection": [
+      "url: https://outlook.office.com/api/v2.0/me/tasks/*",
+      "url: https://outlook.office.com/api/v2.0/me/tasks",
+      "url: https://login.windows.net/organizations/oauth2/v2.0/token/*"
+    ]
+  },
+  "jira": {
+    "descriptionUrl": "doc/jira.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Atlassian/JiraApi.cpp"
+    ],
+    "detection": [
+      "url: https://*.atlassian.net/rest/api/2/issue/*",
+      "url: https://*.atlassian.net/rest/api/2/search?jql=project=*",
+      "url: https://*.atlassian.net/rest/api/2/attachment/*"
+    ]
+  },
+  "twitter": {
+    "descriptionUrl": "doc/twitter.md",
+    "c2Projects": [
+      "https://github.com/ZeroDollarSecurity/LarryChatter",
+      "https://github.com/PaulSec/twittor",
+      "https://github.com/woj-ciech/Social-media-c2"
+    ],
+    "detection": [
+      "url: https://api.twitter.com/1*",
+      "url: https://api.twitter.com/2*",
+      "url: https://upload.twitter.com/",
+      "url: https://api.twitter.com/oauth*"
+    ]
+  },
+  "gmail": {
+    "descriptionUrl": "doc/gmail.md",
+    "c2Projects": [
+      "https://github.com/byt3bl33d3r/gcat",
+      "https://github.com/machine1337/gmailc2",
+      "https://github.com/reveng007/SharpGmailC2",
+      "https://github.com/rschwass/PSGSHELL",
+      "https://github.com/shanefarris/GmailBackdoor"
+    ],
+    "detection": [
+      "url: https://www.googleapis.com/gmail/*",
+      "url: https://www.googleapis.com/auth/*",
+      "Anomalous increase in DNS calls to imap.google.com"
+    ]
+  },
+  "slack": {
+    "descriptionUrl": "doc/slack.md",
+    "c2Projects": [
+      "https://github.com/Coalfire-Research/Slackor",
+      "https://github.com/bkup/SlackShell",
+      "https://github.com/praetorian-inc/slack-c2bot",
+      "https://github.com/j3ssie/c2s",
+      "https://github.com/herwonowr/slackhell",
+      "https://github.com/Yihsiwei/slack-c2-golang",
+      "https://github.com/MythicC2Profiles/slack",
+      "https://github.com/Cainor/Shlack-C2",
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Slack.cpp",
+      "https://github.com/mthcht/StringHunter-triage/blob/main/_results_PeriscopeC2_/Periscope-main.7z"
+    ],
+    "detection": [
+      "url: https://slack.com/api/*",
+      "url: https://api.slack.com/apps/*",
+      "url: https://slack.com/api/chat.postMessage",
+      "url: https://slack.com/api/conversations.list?exclude_archived=true",
+      "url: https://slack.com/api/conversations.create",
+      "url: https://slack.com/api/conversations.replies?channel=*",
+      "url: https://slack.com/api/conversations.history?limit=200&channel=*",
+      "url: https://slack.com/api/chat.update",
+      "url: https://slack.com/api/chat.postMessage",
+      "url: https://slack.com/api/chat.delete",
+      "url: https://slack.com/api/files.upload?*&channels=*&thread_ts=*"
+    ]
+  },
+  "cisco webex": {
+    "descriptionUrl": "doc/webex.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/compare/master...tvgdb:C3:cisco-webex-teams-channel"
+    ],
+    "detection": [
+      "url: https://*/v1/access_token",
+      "url: https://*/v1/messages",
+      "url: https://*/v1/messages?max=*&roomId=*",
+      "url: https://*/v1/messages/*",
+      "url: https://*/v1/rooms"
+    ]
+  },
+  "DuckDuckGO": {
+    "descriptionUrl": "doc/duckduckgo.md",
+    "c2Projects": [
+      "https://github.com/nopcorn/DuckDuckC2"
+    ],
+    "detection": [
+      "url: https://proxy.duckduckgo.com/iu/?u=",
+      "url: https://*.pythonanywhere.com/image.jpg?cmd=*"
+    ]
+  },
+  "Microsoft Graph": {
+    "descriptionUrl": "doc/graphapi.md",
+    "c2Projects": [
+      "https://github.com/RedSiege/GraphStrike",
+      "https://github.com/grantok/Excel-C2",
+      "https://github.com/boku7/azureOutlookC2",
+      "https://github.com/NTT-Security-Japan/pac2",
+      "https://github.com/looCiprian/GC2-sheet",
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/OneDrive365RestFile.cpp",
+      "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/onedrive.py"
+    ],
+    "detection": [
+      "url: https://graph.microsoft.com/beta/*metadata#chats",
+      "url: https://graph.microsoft.com/beta/*metadata#teams*/channels*/messages",
+      "url: https://graph.microsoft.com/v1.0/*metadata#chats*/members",
+      "url: https://graph.microsoft.com/v1.0/*metadata#teams*",
+      "url: https://graph.microsoft.com/v1.0/drives/*/items/*/workbook/worksheets",
+      "url: https://graph.microsoft.com/v1.0/users/*/drive/root:/*",
+      "url: https://graph.microsoft.com/v1.0/me/MailFolders/drafts/messages",
+      "url: https://graph.microsoft.com/v1.0/me/drive/items/*/content",
+      "url: https://graph.microsoft.com/v1.0/me/drive/root/children",
+      "url: https://graph.microsoft.com/v1.0/me/messages",
+      "url: https://graph.microsoft.com/v1.0/me",
+      "url: https://graph.microsoft.com/v1.0/me/chats",
+      "url: https://graph.microsoft.com/v1.0/sites/*/drive/items/*/content",
+      "url: https://graph.microsoft.com/v1.0/sites/*/drives",
+      "url: https://graph.microsoft.com/v1.0/sites/*/lists/*",
+      "url: https://graph.microsoft.com/v1.0/sites/*/lists/*/items/",
+      "url: https://graph.microsoft.com/v1.0/sites/root",
+      "url: https://login.microsoftonline.com/*/oauth2/v2.0/token",
+      "[graphstrike server] User-agent: Mozilla/6.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36",
+      "[Graphstrike] file name: file name containing the string pD9-tK in O365 logs https://x.com/Octoberfest73/status/1896595415883292920"
+    ]
+  },
+  "Microsoft outlook": {
+    "descriptionUrl": "doc/outlook.md",
+    "c2Projects": [
+      "https://github.com/trustedsec/specula",
+      "https://github.com/boku7/azureOutlookC2"
+    ],
+    "detection": [
+      "[specula] - User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 10.0; WOW64; Trident/7.0; Specula; Microsoft Outlook*",
+      "[Specula] - detection patterns https://github.com/mthcht/ThreatHunting-Keywords/blob/main/tools/R-T/specula.csv",
+      "[azureOutlookC2] url: https://login.microsoftonline.com/*/oauth2/token?api-version=1.0",
+      "[azureOutlookC2] url: https://graph.microsoft.com/v1.0/me/MailFolders/drafts/messages",
+      "[azureOutlookC2] url: https://graph.microsoft.com/v1.0/me/messages",
+      "[azureOutlookC2] email recipient: Bobby.Cooke@0xBoku.com",
+      "[azureOutlookC2] email subject: 'Azure Outlook Command & Control'",
+      "[azureOutlookC2] User-Agent: 'Mozilla'"
+    ]
+  },
+  "Microsoft Power Automate": {
+    "descriptionUrl": "doc/power_automate.md",
+    "c2Projects": [
+      "https://github.com/NTT-Security-Japan/pac2"
+    ],
+    "detection": [
+      "url: https://graph.microsoft.com/v1.0/*metadata#teams*",
+      "url: https://graph.microsoft.com/v1.0/*metadata#chats*/members",
+      "url: https://graph.microsoft.com/beta/*metadata#chats",
+      "url: https://graph.microsoft.com/beta/*metadata#teams*/channels*/messages",
+      "url: https://www.dropbox.com/cli_link_nonce?nonce=f*",
+      "url: https://content.dropboxapi.com/2/files/upload",
+      "url: https://api.dropboxapi.com/2/files/download",
+      "[pac2] url: http://dummy.pac2.localhost:9999",
+      "[pac2] url: http://localhost:9999/login",
+      "[pac2] url: http://localhost:9999/register",
+      "[pac2] url: http://localhost:9999/portal",
+      "[pac2] url: */providers/Microsoft.PowerApps/apis/shared_flowmanagement",
+      "[pac2] url: */providers/Microsoft.PowerApps/apis/shared_dropbox",
+      "[pac2] url: *pac2/*/upload/connections.json",
+      "[pac2] url: *pac2/*/payload",
+      "[pac2] url: https://make.powerautomate.com",
+      "[pac2] url: */portal/client/payload",
+      "[pac2] url: */api/teams/messages?channel_id=*",
+      "[pac2] url: */portal/teams?client_id=*",
+      "[pac2] url: */api/teams/chats",
+      "[pac2] url: */api/teams/channels",
+      "[pac2] url: */api/teams/messages",
+      "[pac2] url: */api/teams/graph",
+      "[pac2] url: */teams/chat_members",
+      "[pac2] User-Agent: azure-logic-apps/1.0",
+      "[pac2] file: */mount/dropbox/Dropbox/pac2",
+      "[pac2] file: /c2_access.log"
+    ]
+  },
+  "Microsoft Azure Functions": {
+    "descriptionUrl": "doc/azure_functions.md",
+    "c2Projects": [
+      "https://github.com/RedSiege/FunctionalC2",
+      "https://github.com/dmcxblue/AzureFunctionRedirector",
       "https://web.archive.org/web/20241203083420/https://fortynorthsecurity.com/blog/azure-functions-functional-redirection/",
-        "https://github.com/Flangvik/AzureC2Relay"
-      ],
-      "detection": [
-        "Before forwarding: only url: https://*.azurewebsites.net/api/*",
-        "POST - url: */FortyNorth/PostIt",
-        "GET - url: */FortyNorth/GetIt",
-        "url: */FortyNorth/StageIt",
-        "User-Agent: Microsoft-CryptoAPI/6.1"
-      ]
-    },
-    "soundcloud": {
-      "descriptionUrl": "doc/soundcloud.md",
-      "c2Projects": [
-        "https://github.com/reevesrs24/LivingOffAlexa"
-      ],
-      "detection": [
-        "https://api-v2.soundcloud.com/*",
-        "https://api.soundcloud.com/*",
-        "https://cf-media.sndcdn.com/*"
-      ]
-    },
-    "spotify": {
-      "descriptionUrl": "doc/spotify.md",
-      "c2Projects": [
-        "https://github.com/Kaiser784/SoundShell"
-      ],
-      "detection": [
-        "url: https://p.scdn.co/mp3-preview/",
-        "url: https://api.spotify.com/v1/*"
-      ]
-    },
-    "Microsoft Teams": {
-      "descriptionUrl": "doc/teams.md",
-      "c2Projects": [
-        "https://github.com/cxnturi0n/convoC2",
-        "https://github.com/NTT-Security-Japan/pac2"
-      ],
-      "detection": [
-        "url: https://teams.microsoft.com/api/chatsvc/*/v1/threads",
-        "url: https://teams.microsoft.com/api/chatsvc/*/v1/users/ME/conversations/"
-      ]
-    },
-    "discord": {
-      "descriptionUrl": "doc/discord.md",
-      "c2Projects": [
-        "https://github.com/MythicC2Profiles/discord",
-        "https://github.com/3ct0s/disctopia-c2",
-        "https://github.com/emmaunel/DiscordGo",
-        "https://github.com/crawl3r/DaaC2",
-        "https://github.com/th3r4ven/Bifrost",
-        "https://github.com/kensh1ro/Willie-C2",
-        "https://github.com/codeuk/discord-rat",
-        "https://github.com/Vczz0/Cerberos-C2",
-        "https://github.com/3NailsInfoSec/DCVC2",
-        "https://github.com/hoaan1995/ZER0BOT",
-        "https://github.com/Jeff53978/Python-Trojan",
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Discord/DiscordApi.cpp"
-      ],
-      "detection": [
-        "url: https://discord.com/api/*",
-        "url: https://discord.com/api/v9/channels/*",
-        "url: https://discord.com/api/v9/guilds/*"
-      ]
-    },
-    "splunk": {
-      "descriptionUrl": "doc/splunk.md",
-      "c2Projects": [
-        "https://github.com/cnotin/SplunkWhisperer2"
-      ],
-      "detection": [
-        "Splunk endpoint artifacts only - the 'C2' will be a custom Splunk Deployment Server instance"
-      ]
-    },
-    "lichess": {
-      "descriptionUrl": "doc/lichess.md",
-      "c2Projects": [
-        "https://github.com/0x-Apollyon/Malnus-Carlware"
-      ],
-      "detection": [
-        "POST - url: https://lichess.org/api/bot/game/*/move/*",
-        "POST - url: https://lichess.org/api/challenge/*",
-        "GET - url: https://lichess.org/api/stream/event",
-        "GET - url: https://lichess.org/api/bot/game/stream/"
-      ]
-    },
-    "mattermost": {
-      "descriptionUrl": "doc/mattermost.md",
-      "c2Projects": [
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Mattermost/MattermostApi.cpp"
-      ],
-      "detection": [
-        "url: */api/v4/users/*",
-        "url: */api/v4/users/username/*",
-        "url: */api/v4/posts/*",
-        "url: */api/v4/channels",
-        "url: */api/v4/teams?page=*&per_page=30&include_total_count=true",
-        "url: */api/v4/channels?exclude_default_channels=true",
-        "url: */api/v4/teams/name/*/channels/name/*",
-        "url: */api/v4/posts/*/thread",
-        "url: */api/v4/channels/*/posts?per_page=200&page=*",
-        "url: */api/v4/posts/*/patch",
-        "url: */api/v4/files/*/link"
-      ]
-    },
-    "google Sheet": {
-      "descriptionUrl": "doc/google_sheet.md",
-      "c2Projects": [
-        "https://github.com/looCiprian/GC2-sheet",
-        "https://github.com/a-rey/google_RAT"
-      ],
-      "detection": [
-        "url: https://sheets.googleapis.com/*",
-        "url: https://www.googleapis.com/drive/*",
-        "url: https://www.googleapis.com/auth/spreadsheets",
-        "url: https://www.googleapis.com/auth/spreadsheets.readonly",
-        "url: https://sheets.googleapis.com/v4/spreadsheets/*:batchUpdate",
-        "url: https://sheets.googleapis.com/v4/spreadsheets/*/values/*?valueInputOption=RAW",
-        "url: https://sheets.googleapis.com/v4/spreadsheets/*/values:batchGet?*&ranges=*"
-      ]
-    },
-    "Microsoft Sharepoint": {
-      "descriptionUrl": "doc/sharepoint.md",
-      "c2Projects": [
-        "https://github.com/looCiprian/GC2-sheet",
-        "https://github.com/RedSiege/GraphStrike"
-      ],
-      "detection": [
-        "url: https://graph.microsoft.com/v1.0/sites/*/lists/*/items/",
-        "url: https://graph.microsoft.com/v1.0/sites/*/lists/*",
-        "[Graphstrike] file name: file name containing the string pD9-tK in O365 logs https://x.com/Octoberfest73/status/1896595415883292920"
-      ]
-    },
-    "google Drive": {
-      "descriptionUrl": "doc/google_drive.md",
-      "c2Projects": [
-        "https://github.com/lukebaggett/google_socks",
-        "https://github.com/DannyPenten/Rust-DriveC2",
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/GoogleDrive.cpp",
-        "https://github.com/looCiprian/GC2-sheet"
-      ],
-      "detection": [
-        "url: https://www.googleapis.com/drive/*",
-        "POST - url: https://www.googleapis.com/upload/drive/v3/files?*",
-        "GET - url: https://www.googleapis.com/drive/v3/files/*",
-        "url: https://www.googleapis.com/auth/drive",
-        "url: https://oauth2.googleapis.com/token",
-        "url: https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
-        "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20%27application%2Fvnd.google-apps.folder%27*",
-        "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20=%20%27application/octet-stream%27%20and%20name%20contains%20%27*",
-        "url: https://www.googleapis.com/drive/v3/files/*"
-      ]
-    },
-    "google Calendar": {
-      "descriptionUrl": "doc/google_calendar.md",
-      "c2Projects": [
-        "https://github.com/MrSaighnal/GCR-Google-Calendar-RAT"
-      ],
-      "detection": [
-        "url: https://www.googleapis.com/auth/calendar*"
-      ]
-    },
-    "github": {
-      "descriptionUrl": "doc/github.md",
-      "c2Projects": [
-        "https://github.com/3ct0s/disctopia-c2",
-        "https://github.com/TheD1rkMtr/GithubC2",
-        "https://github.com/MythicC2Profiles/github",
-        "https://github.com/offalltn/gitC2",
-        "https://github.com/Cherno-x/Redeemer-C2"
-      ],
-      "detection": [
-        "url: https://api.github.com/*",
-        "url: https://*.app.github.dev/*",
-        "url: https://*actions.githubusercontent.com*",
-        "url: https://raw.githubusercontent.com*",
-        "url: https://codeload.github.com*",
-        "url: https://objects.githubusercontent.com/github-production-release-asset-*",
-        "url: https://gist.githubusercontent.com/*/*/raw/*"
-      ]
-    },
-    "youtube": {
-      "descriptionUrl": "doc/youtube.md",
-      "c2Projects": [
-        "https://github.com/latortuga71/YoutubeAsAC2",
-        "https://github.com/woj-ciech/Social-media-c2",
-        "https://github.com/ricardojoserf/SharpCovertTube"
-      ],
-      "detection": [
-        "url: https://www.googleapis.com/youtube/*",
-        "url: https://www.googleapis.com/youtube/v3/commentThreads?key=*"
-      ]
-    },
-    "pastebin": {
-      "descriptionUrl": "doc/pastebin.md",
-      "c2Projects": [
-        "https://github.com/3ndG4me/AgentSmith",
-        "https://github.com/PeterEdtu/Pastebad-Reverse-Shell"
-      ],
-      "detection": [
-        "url: https://pastebin.com/api/api_post.php",
-        "url: https://pastebin.com/api/*",
-        "url: *pastebin.com/raw/*",
-        "url: *pastebin.com/rw/*"
-      ]
-    },
-    "reddit": {
-      "descriptionUrl": "doc/reddit.md",
-      "c2Projects": [
-        "https://github.com/kleiton0x00/RedditC2",
-        "https://github.com/thrasr/reddit-c2"
-      ],
-      "detection": [
-        "url: https://www.reddit.com/api/*"
-      ]
-    },
-    "dropbox": {
-      "descriptionUrl": "doc/dropbox.md",
-      "c2Projects": [
-        "https://github.com/Arno0x/DBC2",
-        "https://github.com/NTT-Security-Japan/pac2",
-        "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Dropbox.cpp",
-        "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/dbx.py"
-      ],
-      "detection": [
-        "url: https://api.dropboxapi.com/*",
-        "url: https://api.dropboxapi.com/2/files/list_folder",
-        "url: https://api.dropboxapi.com/2/files/create_folder_v2",
-        "url: https://api.dropboxapi.com/2/files/search_v2",
-        "url: https://api.dropboxapi.com/2/files/search/continue_v2",
-        "url: https://content.dropboxapi.com/2/files/download",
-        "[empire] User-agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
-      ]
-    },
-    "instagram": {
-      "descriptionUrl": "doc/instagram.md",
-      "c2Projects": [
-        "https://github.com/woj-ciech/Social-media-c2"
-      ],
-      "detection": [
-        "url: https://api.instagram.com/oauth/*",
-        "url: https://graph.instagram.com/*"
-      ]
-    },
-    "zoom": {
-      "descriptionUrl": "doc/zoom.md",
-      "c2Projects": [
-        "https://github.com/0xEr3bus/ShadowForgeC2"
-      ],
-      "detection": [
-        "url: https://api.zoom.us/v2/chat/users/me/*"
-      ]
-    },
-    "virustotal": {
-      "descriptionUrl": "doc/virustotal.md",
-      "c2Projects": [
-        "https://github.com/RATandC2/VirusTotalC2",
-        "https://github.com/D1rkMtr/VirusTotalC2",
-        "https://github.com/g0h4n/REC2",
-        "https://github.com/samuelriesz/SharpHungarian"
-      ],
-      "detection": [
-        "url: https://www.virustotal.com/api/v3/*/comments",
-        "url: https://www.virustotal.com/api/v2/*/comments"
-      ]
-    },
-    "zulip": {
-      "descriptionUrl": "doc/zulip.md",
-      "c2Projects": [
-        "https://github.com/n1k7l4i/goZulipC2"
-      ],
-      "detection": [
-        "url: https://*.zulipchat.com/api/v1/messages*",
-        "url: https://*.zulipchat.com/api/v1/user_uploads*",
-        "url: https://*.zulipchat.com/api/v1/users/me/subscriptions*",
-        "url: https://*.zulipchat.com/api/v1/get_stream_id?stream=*"
-      ]
-    },
-    "notion": {
-      "descriptionUrl": "doc/notion.md",
-      "c2Projects": [
-        "https://github.com/mttaggart/OffensiveNotion"
-      ],
-      "detection": [
-        "url: https://api.notion.com*"
-      ]
-    },
-    "matrix": {
-      "descriptionUrl": "doc/matrix.md",
-      "c2Projects": [
-        "https://github.com/n1k7l4i/goMatrixC2/",
-        "https://github.com/opensesamedoors/goMatrixC2"
-      ],
-      "detection": [
-        "POST - url: https://matrix.org/_matrix/client/r0/rooms/*/send/m.room.message",
-        "GET - url: https://matrix.org/_matrix/client/r0/rooms/*/messages"
-      ]
-    },
-    "openai": {
-      "descriptionUrl": "doc/openai.md",
-      "c2Projects": [
-        "https://github.com/spartan-conseil/ratchatpt"
-      ],
-      "detection": [
-        "POST & GET - url: https://api.openai.com/v1/files*",
-        "POST - url: https://api.openai.com/v1/files/*",
-        "POST - url: *files.oaiusercontent.com*",
-        "GET - url: https://api.openai.com/v1/files/*/content*"
-      ]
-    }
+      "https://github.com/Flangvik/AzureC2Relay"
+    ],
+    "detection": [
+      "Before forwarding: only url: https://*.azurewebsites.net/api/*",
+      "POST - url: */FortyNorth/PostIt",
+      "GET - url: */FortyNorth/GetIt",
+      "url: */FortyNorth/StageIt",
+      "User-Agent: Microsoft-CryptoAPI/6.1"
+    ]
+  },
+  "soundcloud": {
+    "descriptionUrl": "doc/soundcloud.md",
+    "c2Projects": [
+      "https://github.com/reevesrs24/LivingOffAlexa"
+    ],
+    "detection": [
+      "https://api-v2.soundcloud.com/*",
+      "https://api.soundcloud.com/*",
+      "https://cf-media.sndcdn.com/*"
+    ]
+  },
+  "spotify": {
+    "descriptionUrl": "doc/spotify.md",
+    "c2Projects": [
+      "https://github.com/Kaiser784/SoundShell"
+    ],
+    "detection": [
+      "url: https://p.scdn.co/mp3-preview/",
+      "url: https://api.spotify.com/v1/*"
+    ]
+  },
+  "Microsoft Teams": {
+    "descriptionUrl": "doc/teams.md",
+    "c2Projects": [
+      "https://github.com/cxnturi0n/convoC2",
+      "https://github.com/NTT-Security-Japan/pac2"
+    ],
+    "detection": [
+      "url: https://teams.microsoft.com/api/chatsvc/*/v1/threads",
+      "url: https://teams.microsoft.com/api/chatsvc/*/v1/users/ME/conversations/"
+    ]
+  },
+  "discord": {
+    "descriptionUrl": "doc/discord.md",
+    "c2Projects": [
+      "https://github.com/MythicC2Profiles/discord",
+      "https://github.com/3ct0s/disctopia-c2",
+      "https://github.com/emmaunel/DiscordGo",
+      "https://github.com/crawl3r/DaaC2",
+      "https://github.com/th3r4ven/Bifrost",
+      "https://github.com/kensh1ro/Willie-C2",
+      "https://github.com/codeuk/discord-rat",
+      "https://github.com/Vczz0/Cerberos-C2",
+      "https://github.com/3NailsInfoSec/DCVC2",
+      "https://github.com/hoaan1995/ZER0BOT",
+      "https://github.com/Jeff53978/Python-Trojan",
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Discord/DiscordApi.cpp"
+    ],
+    "detection": [
+      "url: https://discord.com/api/*",
+      "url: https://discord.com/api/v9/channels/*",
+      "url: https://discord.com/api/v9/guilds/*"
+    ]
+  },
+  "splunk": {
+    "descriptionUrl": "doc/splunk.md",
+    "c2Projects": [
+      "https://github.com/cnotin/SplunkWhisperer2"
+    ],
+    "detection": [
+      "Splunk endpoint artifacts only - the 'C2' will be a custom Splunk Deployment Server instance"
+    ]
+  },
+  "lichess": {
+    "descriptionUrl": "doc/lichess.md",
+    "c2Projects": [
+      "https://github.com/0x-Apollyon/Malnus-Carlware"
+    ],
+    "detection": [
+      "POST - url: https://lichess.org/api/bot/game/*/move/*",
+      "POST - url: https://lichess.org/api/challenge/*",
+      "GET - url: https://lichess.org/api/stream/event",
+      "GET - url: https://lichess.org/api/bot/game/stream/"
+    ]
+  },
+  "mattermost": {
+    "descriptionUrl": "doc/mattermost.md",
+    "c2Projects": [
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/Mattermost/MattermostApi.cpp"
+    ],
+    "detection": [
+      "url: */api/v4/users/*",
+      "url: */api/v4/users/username/*",
+      "url: */api/v4/posts/*",
+      "url: */api/v4/channels",
+      "url: */api/v4/teams?page=*&per_page=30&include_total_count=true",
+      "url: */api/v4/channels?exclude_default_channels=true",
+      "url: */api/v4/teams/name/*/channels/name/*",
+      "url: */api/v4/posts/*/thread",
+      "url: */api/v4/channels/*/posts?per_page=200&page=*",
+      "url: */api/v4/posts/*/patch",
+      "url: */api/v4/files/*/link"
+    ]
+  },
+  "google Sheet": {
+    "descriptionUrl": "doc/google_sheet.md",
+    "c2Projects": [
+      "https://github.com/looCiprian/GC2-sheet",
+      "https://github.com/a-rey/google_RAT"
+    ],
+    "detection": [
+      "url: https://sheets.googleapis.com/*",
+      "url: https://www.googleapis.com/drive/*",
+      "url: https://www.googleapis.com/auth/spreadsheets",
+      "url: https://www.googleapis.com/auth/spreadsheets.readonly",
+      "url: https://sheets.googleapis.com/v4/spreadsheets/*:batchUpdate",
+      "url: https://sheets.googleapis.com/v4/spreadsheets/*/values/*?valueInputOption=RAW",
+      "url: https://sheets.googleapis.com/v4/spreadsheets/*/values:batchGet?*&ranges=*"
+    ]
+  },
+  "Microsoft Sharepoint": {
+    "descriptionUrl": "doc/sharepoint.md",
+    "c2Projects": [
+      "https://github.com/looCiprian/GC2-sheet",
+      "https://github.com/RedSiege/GraphStrike"
+    ],
+    "detection": [
+      "url: https://graph.microsoft.com/v1.0/sites/*/lists/*/items/",
+      "url: https://graph.microsoft.com/v1.0/sites/*/lists/*",
+      "[Graphstrike] file name: file name containing the string pD9-tK in O365 logs https://x.com/Octoberfest73/status/1896595415883292920"
+    ]
+  },
+  "google Drive": {
+    "descriptionUrl": "doc/google_drive.md",
+    "c2Projects": [
+      "https://github.com/lukebaggett/google_socks",
+      "https://github.com/DannyPenten/Rust-DriveC2",
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/GoogleDrive.cpp",
+      "https://github.com/looCiprian/GC2-sheet"
+    ],
+    "detection": [
+      "url: https://www.googleapis.com/drive/*",
+      "POST - url: https://www.googleapis.com/upload/drive/v3/files?*",
+      "GET - url: https://www.googleapis.com/drive/v3/files/*",
+      "url: https://www.googleapis.com/auth/drive",
+      "url: https://oauth2.googleapis.com/token",
+      "url: https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+      "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20%27application%2Fvnd.google-apps.folder%27*",
+      "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20=%20%27application/octet-stream%27%20and%20name%20contains%20%27*",
+      "url: https://www.googleapis.com/drive/v3/files/*"
+    ]
+  },
+  "google Calendar": {
+    "descriptionUrl": "doc/google_calendar.md",
+    "c2Projects": [
+      "https://github.com/MrSaighnal/GCR-Google-Calendar-RAT"
+    ],
+    "detection": [
+      "url: https://www.googleapis.com/auth/calendar*"
+    ]
+  },
+  "github": {
+    "descriptionUrl": "doc/github.md",
+    "c2Projects": [
+      "https://github.com/3ct0s/disctopia-c2",
+      "https://github.com/TheD1rkMtr/GithubC2",
+      "https://github.com/MythicC2Profiles/github",
+      "https://github.com/offalltn/gitC2",
+      "https://github.com/Cherno-x/Redeemer-C2"
+    ],
+    "detection": [
+      "url: https://api.github.com/*",
+      "url: https://*.app.github.dev/*",
+      "url: https://*actions.githubusercontent.com*",
+      "url: https://raw.githubusercontent.com*",
+      "url: https://codeload.github.com*",
+      "url: https://objects.githubusercontent.com/github-production-release-asset-*",
+      "url: https://gist.githubusercontent.com/*/*/raw/*"
+    ]
+  },
+  "youtube": {
+    "descriptionUrl": "doc/youtube.md",
+    "c2Projects": [
+      "https://github.com/latortuga71/YoutubeAsAC2",
+      "https://github.com/woj-ciech/Social-media-c2",
+      "https://github.com/ricardojoserf/SharpCovertTube"
+    ],
+    "detection": [
+      "url: https://www.googleapis.com/youtube/*",
+      "url: https://www.googleapis.com/youtube/v3/commentThreads?key=*"
+    ]
+  },
+  "pastebin": {
+    "descriptionUrl": "doc/pastebin.md",
+    "c2Projects": [
+      "https://github.com/3ndG4me/AgentSmith",
+      "https://github.com/PeterEdtu/Pastebad-Reverse-Shell"
+    ],
+    "detection": [
+      "url: https://pastebin.com/api/api_post.php",
+      "url: https://pastebin.com/api/*",
+      "url: *pastebin.com/raw/*",
+      "url: *pastebin.com/rw/*"
+    ]
+  },
+  "reddit": {
+    "descriptionUrl": "doc/reddit.md",
+    "c2Projects": [
+      "https://github.com/kleiton0x00/RedditC2",
+      "https://github.com/thrasr/reddit-c2"
+    ],
+    "detection": [
+      "url: https://www.reddit.com/api/*"
+    ]
+  },
+  "dropbox": {
+    "descriptionUrl": "doc/dropbox.md",
+    "c2Projects": [
+      "https://github.com/Arno0x/DBC2",
+      "https://github.com/NTT-Security-Japan/pac2",
+      "https://github.com/WithSecureLabs/C3/blob/master/Src/Common/FSecure/C3/Interfaces/Channels/Dropbox.cpp",
+      "https://github.com/BC-SECURITY/Empire/blob/main/empire/server/listeners/dbx.py"
+    ],
+    "detection": [
+      "url: https://api.dropboxapi.com/*",
+      "url: https://api.dropboxapi.com/2/files/list_folder",
+      "url: https://api.dropboxapi.com/2/files/create_folder_v2",
+      "url: https://api.dropboxapi.com/2/files/search_v2",
+      "url: https://api.dropboxapi.com/2/files/search/continue_v2",
+      "url: https://content.dropboxapi.com/2/files/download",
+      "[empire] User-agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
+    ]
+  },
+  "instagram": {
+    "descriptionUrl": "doc/instagram.md",
+    "c2Projects": [
+      "https://github.com/woj-ciech/Social-media-c2"
+    ],
+    "detection": [
+      "url: https://api.instagram.com/oauth/*",
+      "url: https://graph.instagram.com/*"
+    ]
+  },
+  "zoom": {
+    "descriptionUrl": "doc/zoom.md",
+    "c2Projects": [
+      "https://github.com/0xEr3bus/ShadowForgeC2"
+    ],
+    "detection": [
+      "url: https://api.zoom.us/v2/chat/users/me/*"
+    ]
+  },
+  "virustotal": {
+    "descriptionUrl": "doc/virustotal.md",
+    "c2Projects": [
+      "https://github.com/RATandC2/VirusTotalC2",
+      "https://github.com/D1rkMtr/VirusTotalC2",
+      "https://github.com/g0h4n/REC2",
+      "https://github.com/samuelriesz/SharpHungarian"
+    ],
+    "detection": [
+      "url: https://www.virustotal.com/api/v3/*/comments",
+      "url: https://www.virustotal.com/api/v2/*/comments"
+    ]
+  },
+  "zulip": {
+    "descriptionUrl": "doc/zulip.md",
+    "c2Projects": [
+      "https://github.com/n1k7l4i/goZulipC2"
+    ],
+    "detection": [
+      "url: https://*.zulipchat.com/api/v1/messages*",
+      "url: https://*.zulipchat.com/api/v1/user_uploads*",
+      "url: https://*.zulipchat.com/api/v1/users/me/subscriptions*",
+      "url: https://*.zulipchat.com/api/v1/get_stream_id?stream=*"
+    ]
+  },
+  "notion": {
+    "descriptionUrl": "doc/notion.md",
+    "c2Projects": [
+      "https://github.com/mttaggart/OffensiveNotion"
+    ],
+    "detection": [
+      "url: https://api.notion.com*"
+    ]
+  },
+  "matrix": {
+    "descriptionUrl": "doc/matrix.md",
+    "c2Projects": [
+      "https://github.com/n1k7l4i/goMatrixC2/",
+      "https://github.com/opensesamedoors/goMatrixC2"
+    ],
+    "detection": [
+      "POST - url: https://matrix.org/_matrix/client/r0/rooms/*/send/m.room.message",
+      "GET - url: https://matrix.org/_matrix/client/r0/rooms/*/messages"
+    ]
+  },
+  "openai": {
+    "descriptionUrl": "doc/openai.md",
+    "c2Projects": [
+      "https://github.com/spartan-conseil/ratchatpt"
+    ],
+    "detection": [
+      "POST & GET - url: https://api.openai.com/v1/files*",
+      "POST - url: https://api.openai.com/v1/files/*",
+      "POST - url: *files.oaiusercontent.com*",
+      "GET - url: https://api.openai.com/v1/files/*/content*"
+    ]
   }
-  
+}
