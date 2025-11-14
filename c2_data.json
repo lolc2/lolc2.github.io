@@ -11,7 +11,8 @@
       "https://github.com/machine1337/TelegramRAT",
       "https://github.com/1N73LL1G3NC3x/Nightmangle",
       "https://github.com/itaymigdal/Poshito",
-      "https://github.com/govindasamyarun/c2-cloud"
+      "https://github.com/govindasamyarun/c2-cloud",
+      "https://github.com/s0ld13rr/GhostShell"
     ],
     "detection": [
       "url: https://api.telegram.org/bot*"
@@ -724,3 +725,4 @@
     ]
   }
 }
+
