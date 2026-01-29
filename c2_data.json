@@ -17,6 +17,15 @@
       "url: https://api.telegram.org/bot*"
     ]
   },
+  "FireBase": {
+    "descriptionUrl": "doc/firebase.md",
+    "c2Projects": [
+      "https://github.com/s0ld13rr/firec2"
+    ],
+    "detection": [
+      "fixme"
+    ]
+  },
   "CounterStrike 1.6": {
     "descriptionUrl": "doc/counterstrike.md",
     "c2Projects": [
@@ -725,4 +734,5 @@
     ]
   }
 }
+
 
