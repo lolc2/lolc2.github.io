@@ -46,7 +46,7 @@
     "detection": [
       "Cloudflare Tunnels: *.cfargotunnel.com",
       "Cloudflare Workers and Apps: https://*.workers.dev",
-      "Cloudfare Pages: https://*.pages.dev",
+      "Cloudflare Pages: https://*.pages.dev",
       "Cloudflare DoH: https://cloudflare-dns.com/dns-query",
       "blog: https://labs.jumpsec.com/putting-the-c2-in-c2loudflare/",
       "comment: Keep an eye on DNS queries for subdomains of cfargotunnel.com and workers.dev that don't align with normal business operations",
@@ -734,5 +734,6 @@
     ]
   }
 }
+
 
 
