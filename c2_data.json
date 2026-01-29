@@ -528,7 +528,8 @@
     "descriptionUrl": "doc/google_calendar.md",
     "c2Projects": [
       "https://github.com/MrSaighnal/GCR-Google-Calendar-RAT",
-      "https://cloud.google.com/blog/topics/threat-intelligence/apt41-innovative-tactics"
+      "https://cloud.google.com/blog/topics/threat-intelligence/apt41-innovative-tactics",
+      "https://github.com/deriv-security/MeetC2"
     ],
     "detection": [
       "url: https://www.googleapis.com/auth/calendar*",
@@ -724,3 +725,4 @@
     ]
   }
 }
+
