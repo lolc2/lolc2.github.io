@@ -3,180 +3,317 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
   <title>LOLC2</title>
   <style>
-    /* Basic reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    @media only screen and (max-width: 768px) {
-      .github-logo {
-        width: 32px;
-        height: 32px;
-        top: 5px;
-        right: 5px;
-      }
-      .tile-grid {
-        grid-template-columns: 1fr;
-      }
-      .detail-view {
-        flex-direction: column;
-        height: auto;
-      }
-      .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #cfd8dc;
-        margin-bottom: 1rem;
-      }
-      .detail-content {
-        width: 100%;
-        padding: 1rem;
-      }
-    }
-    .github-logo {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 64px;
-      height: 64px;
-      background-color: #3f535c;
-      border-radius: 50%;
-      padding: 4px;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: 'Inter', sans-serif;
       background: #f3f4f6;
       color: #37474f;
+      line-height: 1.6;
     }
+
+    /* ── Header ── */
     header {
       background: linear-gradient(to right, #263238, #455a64);
       padding: 1rem;
       text-align: center;
       color: #fff;
     }
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 500;
+    header h1 { font-size: 1.6rem; font-weight: 500; }
+    .github-logo {
+      position: absolute; top: 10px; right: 10px;
+      width: 64px; height: 64px;
+      background-color: #3f535c; border-radius: 50%; padding: 4px;
     }
-    .main-container {
-      max-width: 1200px;
-      margin: 1rem auto;
-      padding: 0 1rem;
+
+    /* ── Main ── */
+    .main-container { margin: 1rem auto; padding: 0 1.5rem; }
+
+    /* ── Search ── */
+    .search-container { margin-bottom: 1rem; }
+    .search-container input {
+      width: 100%; padding: 0.6rem 1rem;
+      border: 1px solid #cfd8dc; border-radius: 6px;
+      font-size: 0.95rem; font-family: 'Inter', sans-serif;
+      background: #fff; color: #37474f; outline: none;
+      transition: border-color 0.2s;
     }
+    .search-container input:focus { border-color: #1e88e5; }
+
+    /* ── Tile Grid ── */
     .tile-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       grid-gap: 1rem;
     }
     .tile {
-      background: #fff;
-      border-radius: 8px;
+      background: #fff; border-radius: 8px;
       box-shadow: 0 1px 5px rgba(0,0,0,0.15);
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
+      padding: 1rem; text-align: center; cursor: pointer;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       min-height: 180px;
     }
-    .tile:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    .tile:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+    .tile.hidden { display: none; }
+    .tile img { width: 60px; height: 60px; object-fit: contain; margin-bottom: 0.5rem; }
+    .tile-text { font-size: 1rem; font-weight: 500; text-transform: capitalize; color: #37474f; }
+
+    /* ── Fallback Icon ── */
+    .fallback-icon {
+      width: 60px; height: 60px; margin-bottom: 0.5rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #455a64, #37474f);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 700; color: #fff;
+      text-transform: uppercase; flex-shrink: 0;
     }
-    .tile img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      margin-bottom: 0.5rem;
+
+    /* ── Detail View ── */
+    .detail-view { display: none; margin-top: 1rem; }
+
+    /* Toolbar */
+    .detail-toolbar {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: #263238; color: #fff;
+      border-radius: 8px 8px 0 0;
     }
-    .tile-text {
-      font-size: 1rem;
-      font-weight: 500;
-      text-transform: capitalize;
-      color: #37474f;
+    .detail-toolbar .detail-icon { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(1); }
+    .detail-toolbar .detail-fallback-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 700; color: #fff; text-transform: uppercase; flex-shrink: 0;
     }
-    .detail-view {
-      display: none;
-      background: #fff;
-      box-shadow: 0 1px 5px rgba(0,0,0,0.15);
-      border-radius: 8px;
-      height: 600px;
-      overflow: hidden;
-      margin-top: 1rem;
+    .detail-toolbar .detail-title {
+      font-size: 1.15rem; font-weight: 600; flex: 1; text-transform: capitalize;
     }
-    .sidebar {
-      background: #f7f7f7;
-      width: 200px;
-      border-right: 1px solid #cfd8dc;
-      padding: 1rem;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
+    .detail-toolbar button {
+      background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px; padding: 0.4rem 0.85rem; font-size: 0.8rem;
+      cursor: pointer; white-space: nowrap; font-family: 'Inter', sans-serif;
+      transition: background 0.15s;
     }
-    .sidebar button {
-      background: #37474f;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    .sidebar button:hover {
-      background: #455a64;
-    }
+    .detail-toolbar button:hover { background: rgba(255,255,255,0.25); }
+    .copy-link-btn.copied { background: #43a047 !important; border-color: #43a047 !important; }
+    .contribute-btn { background: rgba(46,125,50,0.6) !important; border-color: rgba(46,125,50,0.8) !important; }
+    .contribute-btn:hover { background: rgba(46,125,50,0.8) !important; }
+
+    /* Detail Content Area */
     .detail-content {
-      flex: 1;
-      padding: 1rem 1.5rem;
-      overflow-y: auto;
-      white-space: pre-wrap; /* Ensures Markdown line breaks are preserved */
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+      padding: 0;
     }
-    .detail-content h2 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      text-transform: capitalize;
-      margin-bottom: 0.75rem;
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: flex; gap: 1.5rem; padding: 1rem 2rem;
+      background: #f8f9fa; border-bottom: 1px solid #e8eaed;
+      flex-wrap: wrap; align-items: center;
     }
-    .label {
-      font-weight: 600;
-      color: #616161;
-      margin: 1rem 0 0.25rem;
+    .stat-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.85rem; color: #5f6368;
     }
-    ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
+    .stat-item .stat-num {
+      font-weight: 700; font-size: 1rem; color: #37474f;
     }
-    li {
-      margin: 0.25rem 0;
-      word-break: break-all;
+    .stat-item .stat-icon {
+      font-size: 1rem; line-height: 1;
     }
-    a {
-      color: #1e88e5;
-      text-decoration: none;
+
+    /* ── Section Cards ── */
+    .detail-sections { padding: 1.5rem 2rem 2rem; }
+
+    .section-card {
+      margin-bottom: 1.5rem;
+      border: 1px solid #e8eaed;
+      border-radius: 8px;
+      overflow: hidden;
     }
-    a:hover {
+    .section-header {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e8eaed;
+      font-weight: 600; font-size: 0.9rem; color: #37474f;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-header:hover { background: #f0f1f3; }
+    .section-header .sec-icon { font-size: 1rem; line-height: 1; }
+    .section-header .sec-count {
+      margin-left: auto;
+      font-size: 0.75rem; font-weight: 500;
+      background: #e8eaed; color: #5f6368;
+      padding: 0.15rem 0.5rem; border-radius: 10px;
+    }
+    .section-header .chevron {
+      font-size: 0.7rem; color: #9aa0a6; transition: transform 0.2s;
+      margin-left: 0.35rem;
+    }
+    .section-header.collapsed .chevron { transform: rotate(-90deg); }
+    .section-body { padding: 0; }
+    .section-body.collapsed { display: none; }
+
+    /* ── C2 Projects ── */
+    .project-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid #f3f4f6;
+      transition: background 0.1s;
+    }
+    .project-item:last-child { border-bottom: none; }
+    .project-item:hover { background: #f8f9fa; }
+    .project-item .proj-icon { font-size: 1rem; color: #5f6368; flex-shrink: 0; }
+    .project-item a {
+      color: #1a73e8; text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; word-break: break-all;
+    }
+    .project-item a:hover { text-decoration: underline; }
+    .project-item .proj-repo {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+      color: #5f6368; margin-left: auto; flex-shrink: 0; white-space: nowrap;
+    }
+
+    /* ── Detection Items ── */
+    .detection-group { padding: 0; }
+    .detection-group-title {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      background: #fafbfc;
+      border-bottom: 1px solid #f0f1f3;
+      font-size: 0.78rem; font-weight: 600; color: #80868b;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .detection-group-title .dg-icon { font-size: 0.85rem; }
+
+    .detection-item {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.5rem 1rem 0.5rem 1.5rem;
+      border-bottom: 1px solid #f7f8f9;
+      font-size: 0.88rem;
+    }
+    .detection-item:last-child { border-bottom: none; }
+
+    .detection-item .det-tag {
+      flex-shrink: 0;
+      font-size: 0.65rem; font-weight: 600;
+      padding: 0.15rem 0.4rem; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: 0.03em;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 0.15rem;
+    }
+    .det-tag.tag-url       { background: #e8f0fe; color: #1967d2; }
+    .det-tag.tag-ua        { background: #fce8e6; color: #c5221f; }
+    .det-tag.tag-file      { background: #fef7e0; color: #e37400; }
+    .det-tag.tag-process   { background: #f3e8fd; color: #8430ce; }
+    .det-tag.tag-logic     { background: #e6f4ea; color: #137333; }
+    .det-tag.tag-ref       { background: #f1f3f4; color: #5f6368; }
+    .det-tag.tag-other     { background: #f1f3f4; color: #5f6368; }
+
+    .detection-item .det-tool {
+      font-size: 0.7rem; font-weight: 600;
+      padding: 0.1rem 0.35rem; border-radius: 3px;
+      background: #f1f3f4; color: #5f6368;
+      font-family: 'JetBrains Mono', monospace;
+      flex-shrink: 0; margin-top: 0.15rem;
+    }
+
+    .detection-item .det-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; word-break: break-all;
+      color: #37474f; line-height: 1.5;
+    }
+    .detection-item .det-text {
+      font-size: 0.88rem; word-break: break-word;
+      color: #37474f; line-height: 1.5;
+    }
+    .detection-item .det-value a,
+    .detection-item .det-text a {
+      color: #1a73e8; text-decoration: none;
+    }
+    .detection-item .det-value a:hover,
+    .detection-item .det-text a:hover {
       text-decoration: underline;
     }
+
+    /* HTTP method pills */
+    .http-method {
+      display: inline-block;
+      font-size: 0.6rem; font-weight: 700;
+      padding: 0.1rem 0.3rem; border-radius: 2px;
+      margin-right: 0.25rem;
+      font-family: 'JetBrains Mono', monospace;
+      vertical-align: middle;
+    }
+    .http-get    { background: #e6f4ea; color: #137333; }
+    .http-post   { background: #e8f0fe; color: #1967d2; }
+    .http-put    { background: #fef7e0; color: #e37400; }
+    .http-delete { background: #fce8e6; color: #c5221f; }
+    .http-head   { background: #f3e8fd; color: #8430ce; }
+    .http-other  { background: #f1f3f4; color: #5f6368; }
+
+    /* ── Description Section ── */
+    .desc-section {
+      padding: 1rem 1rem;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      color: #3c4043;
+    }
+    .desc-section h1, .desc-section h2, .desc-section h3,
+    .desc-section h4, .desc-section h5, .desc-section h6 {
+      margin: 1.25rem 0 0.5rem; color: #202124; font-weight: 600;
+    }
+    .desc-section h4, .desc-section h5 { font-size: 1.05rem; }
+    .desc-section h3 { font-size: 1.15rem; }
+    .desc-section p { margin: 0.5rem 0; }
+    .desc-section img {
+      max-width: 100%; height: auto; border-radius: 6px;
+      margin: 0.75rem 0;
+      border: 1px solid #e8eaed;
+    }
+    .desc-section a { color: #1a73e8; }
+    .desc-section a:hover { text-decoration: underline; }
+    .desc-section ul, .desc-section ol { margin: 0.5rem 0 0.5rem 1.5rem; }
+    .desc-section li { margin: 0.25rem 0; }
+    .desc-section code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em; background: #f1f3f4;
+      padding: 0.15rem 0.35rem; border-radius: 3px;
+    }
+    .desc-section pre {
+      background: #f8f9fa; border: 1px solid #e8eaed;
+      border-radius: 6px; padding: 1rem; margin: 0.75rem 0;
+      overflow-x: auto;
+    }
+    .desc-section pre code { background: none; padding: 0; }
+    .desc-section strong { color: #202124; }
+    .desc-section blockquote {
+      border-left: 3px solid #dadce0; padding: 0.5rem 1rem;
+      margin: 0.75rem 0; color: #5f6368; background: #fafbfc;
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ── Generic ── */
+    a { color: #1a73e8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
     @media (max-width: 768px) {
-      .github-logo {
-        width: 24px;
-        height: 24px;
-      }
-      .footer-note {
-        text-align: center;
-        font-size: 0.9rem;
-        color: #757575;
-        padding: 1rem;
-      }
+      .github-logo { width: 32px; height: 32px; top: 5px; right: 5px; }
+      .tile-grid { grid-template-columns: 1fr; }
+      .detail-sections { padding: 1rem; }
+      .stats-bar { padding: 0.75rem 1rem; gap: 1rem; }
+      .detail-toolbar .detail-title { font-size: 0.95rem; }
+      .detection-item { padding-left: 1rem; }
     }
   </style>
 </head>
@@ -193,87 +330,310 @@
 </a>
 
 <div class="main-container">
+  <div class="search-container" id="searchContainer" style="display:none;">
+    <input type="text" id="searchInput" placeholder="Search services..." autocomplete="off">
+  </div>
   <div class="tile-grid" id="tileGrid"></div>
   <div class="detail-view" id="detailView">
-    <div class="sidebar">
-      <button onclick="goBack()">Go Back</button>
+    <div class="detail-toolbar" id="detailToolbar">
+      <div id="toolbarIconContainer"></div>
+      <div class="detail-title" id="detailTitle"></div>
+      <button class="contribute-btn" onclick="openContribute()">&#9998; Contribute</button>
+      <button class="copy-link-btn" onclick="copyShareLink()">&#128279; Copy Link</button>
+      <button onclick="goBack()">&#8592; Back</button>
     </div>
     <div class="detail-content" id="detailContent"></div>
   </div>
 </div>
 
-<!-- Marked.js for Markdown parsing -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
   let c2Data = {};
 
-  // Optional icons
   const serviceIcons = {
-    telegram:                   'https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg',
-    twitter:                    'https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg',
-    gmail:                      'https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg',
-    slack:                      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Slack_Icon.png/640px-Slack_Icon.png',
-    discord:                    'https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg',
-    "google Sheet":             'https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg',
-    "google Drive":             'https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg',
-    "google Calendar":          'https://upload.wikimedia.org/wikipedia/commons/a/a2/Google_Calendar_icon_%282015-2020%29.svg',
-    "google Slides":            'https://upload.wikimedia.org/wikipedia/commons/1/16/Google_Slides_2020_Logo.svg',
-    "Google Translate":         'https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Translate_logo.svg',
-    github:                     'https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg',
-    youtube:                    'https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg',
-    pastebin:                   'https://upload.wikimedia.org/wikipedia/commons/d/d5/Pastebin_logo.png',
-    reddit:                     'https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg',
-    cloudflare:                 'http://upload.wikimedia.org/wikipedia/commons/9/94/Cloudflare_Logo.png',
-    dropbox:                    'https://upload.wikimedia.org/wikipedia/commons/7/78/Dropbox_Icon.svg',
-    instagram:                  'https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg',
-    zoom:                       'https://upload.wikimedia.org/wikipedia/commons/2/24/Zoom-Logo.png',
-    virustotal:                 'https://avatars.githubusercontent.com/u/7701252',
-    zulip:                      'https://upload.wikimedia.org/wikipedia/commons/3/39/Zulip-icon-square.svg',
-    mastodon:                   'https://upload.wikimedia.org/wikipedia/commons/d/d5/Mastodon_logotype_%28simple%29_new_hue.svg',
-    notion:                     'https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png',
-    matrix:                     'https://upload.wikimedia.org/wikipedia/commons/7/7c/Matrix_icon.svg',
-    openai:                     'https://upload.wikimedia.org/wikipedia/commons/a/a4/GPT-4.png',
-    claude:                     'https://upload.wikimedia.org/wikipedia/commons/8/8a/Claude_AI_logo.svg',
-    soundcloud:                 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Antu_soundcloud.svg/640px-Antu_soundcloud.svg.png',
-    spotify:                    'https://upload.wikimedia.org/wikipedia/commons/5/54/2024_Spotify_logo_without_text.svg',
-    firebase:                   'doc/firebase.png',
-    "Microsoft Printer":        'doc/microsoft_printer.png',
-    "Microsoft Power Automate": 'https://upload.wikimedia.org/wikipedia/commons/4/4d/Microsoft_Power_Automate.svg',
-    "Microsoft Teams":          'doc/Teams_icon.png',
-    "Microsoft Tasks":          'https://upload.wikimedia.org/wikipedia/commons/6/6e/Microsoft_To-Do_icon.svg',
-    "Microsoft outlook":        'https://upload.wikimedia.org/wikipedia/commons/f/f7/Microsoft_Outlook_2013-2019_logo.svg',
-    "Microsoft Sharepoint":     'doc/sharepoint_icon.svg',
-    "Microsoft Graph":          'https://learn.microsoft.com/pt-br/graph/images/hub/icon04-graphtoolkit.svg',
-    "Microsoft Azure Functions": 'doc/azure-functions-logo.png',
-    "Microsoft Azure Application Proxy": 'doc/entraid_appproxypng.png',
-    "Microsoft Azure Blob Storage": "doc/azure-blob-storage-color.svg",
-    "splunk":                   'https://upload.wikimedia.org/wikipedia/commons/f/f8/Splunk_logo.png',
-    "lichess":                  'https://upload.wikimedia.org/wikipedia/commons/d/da/Lichess_Logo_2019.svg',
-    "asana":                    'https://upload.wikimedia.org/wikipedia/commons/archive/3/3b/20220310194314%21Asana_logo.svg',
-    "jira":                     'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Jira_Logo.svg/1920px-Jira_Logo.svg.png',
-    "mattermost":               'https://avatars.githubusercontent.com/u/9828093',
-    "onedrive":                 'doc/onedrive_icon.png',
-    "cisco webex":              'https://avatars.githubusercontent.com/u/15900782',
-    "DuckDuckGO":               'https://upload.wikimedia.org/wikipedia/en/8/88/DuckDuckGo_logo.svg',
-    "CounterStrike 1.6":        'https://upload.wikimedia.org/wikipedia/pt/6/67/Counter-Strike_Box.jpg',
-    "whatsapp":                 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
-    "x":                        'https://upload.wikimedia.org/wikipedia/commons/2/2d/Twitter_X.png',
-    "Strava":                   'doc/strava.svg'
+    "telegram":                          "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg",
+    "twitter":                           "https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg",
+    "gmail":                             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg",
+    "slack":                             "https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg",
+    "discord":                           "https://upload.wikimedia.org/wikipedia/fr/4/4f/Discord_Logo_sans_texte.svg",
+    "google Sheet":                      "https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg",
+    "google Drive":                      "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg",
+    "google Calendar":                   "https://upload.wikimedia.org/wikipedia/commons/a/a2/Google_Calendar_icon_%282015-2020%29.svg",
+    "google Slides":                     "https://upload.wikimedia.org/wikipedia/commons/1/16/Google_Slides_2020_Logo.svg",
+    "Google Translate":                  "https://upload.wikimedia.org/wikipedia/commons/d/d7/Google_Translate_logo.svg",
+    "github":                            "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
+    "youtube":                           "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+    "pastebin":                          "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pastebin_logo.png",
+    "reddit":                            "https://upload.wikimedia.org/wikipedia/commons/b/b4/Reddit_logo.svg",
+    "cloudflare":                        "https://upload.wikimedia.org/wikipedia/commons/9/94/Cloudflare_Logo.png",
+    "dropbox":                           "https://upload.wikimedia.org/wikipedia/commons/7/78/Dropbox_Icon.svg",
+    "instagram":                         "https://upload.wikimedia.org/wikipedia/commons/9/95/Instagram_logo_2022.svg",
+    "zoom":                              "https://upload.wikimedia.org/wikipedia/commons/2/24/Zoom-Logo.png",
+    "virustotal":                        "https://avatars.githubusercontent.com/u/7701252",
+    "zulip":                             "https://upload.wikimedia.org/wikipedia/commons/3/39/Zulip-icon-square.svg",
+    "mastodon":                          "https://upload.wikimedia.org/wikipedia/commons/d/d5/Mastodon_logotype_%28simple%29_new_hue.svg",
+    "notion":                            "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png",
+    "matrix":                            "https://upload.wikimedia.org/wikipedia/commons/7/7c/Matrix_icon.svg",
+    "openai":                            "https://upload.wikimedia.org/wikipedia/commons/a/a4/GPT-4.png",
+    "claude":                            "https://upload.wikimedia.org/wikipedia/commons/8/8a/Claude_AI_logo.svg",
+    "soundcloud":                        "https://upload.wikimedia.org/wikipedia/commons/a/a2/Antu_soundcloud.svg",
+    "spotify":                           "https://upload.wikimedia.org/wikipedia/commons/5/54/2024_Spotify_logo_without_text.svg",
+    "FireBase":                          "doc/firebase.png",
+    "Microsoft Printer":                 "doc/microsoft_printer.png",
+    "Microsoft Power Automate":          "https://upload.wikimedia.org/wikipedia/commons/4/4d/Microsoft_Power_Automate.svg",
+    "Microsoft Teams":                   "doc/Teams_icon.png",
+    "Microsoft Tasks":                   "https://upload.wikimedia.org/wikipedia/commons/6/6e/Microsoft_To-Do_icon.svg",
+    "Microsoft outlook":                 "https://upload.wikimedia.org/wikipedia/commons/f/f7/Microsoft_Outlook_2013-2019_logo.svg",
+    "Microsoft Sharepoint":              "doc/sharepoint_icon.svg",
+    "Microsoft Graph":                   "https://learn.microsoft.com/pt-br/graph/images/hub/icon04-graphtoolkit.svg",
+    "Microsoft Azure Functions":         "doc/azure-functions-logo.png",
+    "Microsoft Azure Application Proxy": "doc/entraid_appproxypng.png",
+    "Microsoft Azure Blob Storage":      "doc/azure-blob-storage-color.svg",
+    "splunk":                            "https://upload.wikimedia.org/wikipedia/commons/f/f8/Splunk_logo.png",
+    "lichess":                           "https://upload.wikimedia.org/wikipedia/commons/d/da/Lichess_Logo_2019.svg",
+    "asana":                             "https://upload.wikimedia.org/wikipedia/commons/archive/3/3b/20220310194314%21Asana_logo.svg",
+    "jira":                              "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Jira_Logo.svg/1920px-Jira_Logo.svg.png",
+    "mattermost":                        "https://avatars.githubusercontent.com/u/9828093",
+    "onedrive":                          "doc/onedrive_icon.png",
+    "cisco webex":                       "https://avatars.githubusercontent.com/u/15900782",
+    "DuckDuckGO":                        "https://upload.wikimedia.org/wikipedia/en/8/88/DuckDuckGo_logo.svg",
+    "CounterStrike 1.6":                 "https://upload.wikimedia.org/wikipedia/pt/6/67/Counter-Strike_Box.jpg",
+    "whatsapp":                          "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+    "x":                                 "https://upload.wikimedia.org/wikipedia/commons/2/2d/Twitter_X.png",
+    "Strava":                            "doc/strava.svg",
+    "Wi-Fi Beacons":                     "https://upload.wikimedia.org/wikipedia/commons/a/ae/WiFi_Logo.svg",
+    "AWS X-Ray":                         "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg",
+    "Trello":                            "https://upload.wikimedia.org/wikipedia/en/8/8c/Trello_logo.svg"
   };
 
-  // Fetch JSON
+  /* ════════════════════════════════════════
+     DETECTION CLASSIFIER
+     ════════════════════════════════════════ */
+  function classifyDetection(raw) {
+    const s = raw.trim();
+    const lower = s.toLowerCase();
+
+    // Extract tool tag like [BabyShark] or [empire]
+    let tool = null;
+    const toolMatch = s.match(/^\[([^\]]+)\]\s*/);
+    if (toolMatch) {
+      tool = toolMatch[1];
+    }
+    // Strip tool prefix and common prefixes for classification
+    let clean = toolMatch ? s.slice(toolMatch[0].length) : s;
+
+    // --- References / blogs ---
+    if (/^(detection blog|blog|source|detection patterns)[:\s]/i.test(clean) ||
+        (/^https?:\/\//i.test(clean) && !/(api\.|graph\.|\.com\/api|\.com\/v[0-9]|blob\.core|\.net\/api)/i.test(clean) && /(blog|medium|research|github\.com\/mthcht|x\.com\/)/i.test(clean))) {
+      const urlMatch = clean.match(/(https?:\/\/[^\s]+)/);
+      return { type: 'reference', tool, value: clean, url: urlMatch ? urlMatch[1] : null };
+    }
+
+    // --- Detection strategy / logic ---
+    if (/^(detection (strategy|logic)|comment)[:\s]/i.test(clean) ||
+        /^(high-frequency|unusual |repeated |anomalous |rare |excessive |presence of )/i.test(clean) ||
+        /^(base64 payloads)/i.test(clean)) {
+      return { type: 'logic', tool, value: clean.replace(/^(detection (strategy|logic)|comment)[:\s]*/i, '') };
+    }
+
+    // --- User-Agent ---
+    if (/user-?agent/i.test(lower)) {
+      const uaMatch = clean.match(/user-?agent[:\s]*(.+)/i);
+      return { type: 'useragent', tool, value: uaMatch ? uaMatch[1].trim() : clean };
+    }
+
+    // --- File artifacts ---
+    if (/^file (created|name)[:\s]/i.test(clean) || /^file[:\s]/i.test(clean) ||
+        (tool && /\bfile\b/i.test(clean) && !/https?:\/\//i.test(clean))) {
+      return { type: 'file', tool, value: clean.replace(/^file[:\s]*/i, '') };
+    }
+
+    // --- Process indicators ---
+    if (/^process\s*[-:]/i.test(clean)) {
+      return { type: 'process', tool, value: clean.replace(/^process\s*[-:\s]*/i, '') };
+    }
+
+    // --- Network / URL indicators ---
+    // Detect HTTP method prefixes
+    const methodMatch = clean.match(/^(GET|POST|PUT|DELETE|HEAD|PATCH)\s*[-&]\s*/i);
+    let method = methodMatch ? methodMatch[1].toUpperCase() : null;
+    let urlClean = methodMatch ? clean.slice(methodMatch[0].length) : clean;
+
+    // Combined methods like "POST & GET"
+    const multiMethodMatch = clean.match(/^((?:GET|POST|PUT|DELETE|HEAD|PATCH)\s*(?:&\s*(?:GET|POST|PUT|DELETE|HEAD|PATCH)\s*)*)\s*[-:]\s*/i);
+    if (multiMethodMatch) {
+      method = multiMethodMatch[1].replace(/\s+/g, '').toUpperCase();
+      urlClean = clean.slice(multiMethodMatch[0].length);
+    }
+
+    // Strip "url:" prefix
+    if (/^url[:\s]+/i.test(urlClean)) {
+      urlClean = urlClean.replace(/^url[:\s]+/i, '').trim();
+    }
+
+    if (/^https?:\/\//i.test(urlClean) || /^\*[.\/:]/i.test(urlClean) || /^url[:\s]/i.test(clean)) {
+      // Try to detect method from value
+      if (!method) {
+        const innerMethod = urlClean.match(/^(GET|POST|PUT|DELETE|HEAD|PATCH)\s*[-&:]\s*/i);
+        if (innerMethod) {
+          method = innerMethod[1].toUpperCase();
+          urlClean = urlClean.slice(innerMethod[0].length);
+        }
+      }
+      return { type: 'network', tool, method, value: urlClean };
+    }
+
+    // Cloudflare-style "Service: pattern"
+    if (/^(Cloudflare|Before|Splunk)/i.test(clean) || /^(fixme)$/i.test(clean)) {
+      return { type: 'other', tool, value: clean };
+    }
+
+    // Catch remaining URLs
+    if (/https?:\/\//i.test(clean)) {
+      return { type: 'network', tool, method, value: urlClean };
+    }
+
+    return { type: 'other', tool, value: clean };
+  }
+
+  function renderMethodPill(method) {
+    if (!method) return '';
+    // Handle multi-method like "POST&GET"
+    const methods = method.split('&');
+    return methods.map(m => {
+      const cls = {
+        'GET': 'http-get', 'POST': 'http-post', 'PUT': 'http-put',
+        'DELETE': 'http-delete', 'HEAD': 'http-head', 'PATCH': 'http-other'
+      }[m] || 'http-other';
+      return `<span class="http-method ${cls}">${m}</span>`;
+    }).join('');
+  }
+
+  const TYPE_META = {
+    network:   { label: 'Network Indicators', icon: '&#128279;', tag: 'URL',     tagClass: 'tag-url' },
+    useragent: { label: 'User-Agent Strings', icon: '&#128269;', tag: 'UA',      tagClass: 'tag-ua' },
+    file:      { label: 'File Artifacts',     icon: '&#128196;', tag: 'FILE',    tagClass: 'tag-file' },
+    process:   { label: 'Process Indicators', icon: '&#9881;',   tag: 'PROC',    tagClass: 'tag-process' },
+    logic:     { label: 'Detection Logic',    icon: '&#128161;', tag: 'LOGIC',   tagClass: 'tag-logic' },
+    reference: { label: 'References',         icon: '&#128218;', tag: 'REF',     tagClass: 'tag-ref' },
+    other:     { label: 'Other',              icon: '&#128221;', tag: 'INFO',    tagClass: 'tag-other' }
+  };
+
+  function linkifyUrls(text) {
+    return text.replace(/(https?:\/\/[^\s<>]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  function renderDetectionItem(d) {
+    const meta = TYPE_META[d.type];
+    let toolHtml = d.tool ? `<span class="det-tool">${d.tool}</span>` : '';
+    let tagHtml = `<span class="det-tag ${meta.tagClass}">${meta.tag}</span>`;
+
+    if (d.type === 'network') {
+      const methodHtml = renderMethodPill(d.method);
+      return `<div class="detection-item">${tagHtml}${toolHtml}<span class="det-value">${methodHtml}${linkifyUrls(escapeHtml(d.value))}</span></div>`;
+    }
+    if (d.type === 'useragent') {
+      return `<div class="detection-item">${tagHtml}${toolHtml}<span class="det-value">${escapeHtml(d.value)}</span></div>`;
+    }
+    if (d.type === 'reference') {
+      const linked = linkifyUrls(escapeHtml(d.value));
+      return `<div class="detection-item">${tagHtml}${toolHtml}<span class="det-text">${linked}</span></div>`;
+    }
+    if (d.type === 'file' || d.type === 'process') {
+      return `<div class="detection-item">${tagHtml}${toolHtml}<span class="det-value">${linkifyUrls(escapeHtml(d.value))}</span></div>`;
+    }
+    // logic, other
+    return `<div class="detection-item">${tagHtml}${toolHtml}<span class="det-text">${linkifyUrls(escapeHtml(d.value))}</span></div>`;
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function buildDetectionSection(detections) {
+    const classified = detections.map(classifyDetection);
+
+    // Group by type, preserving order of first appearance
+    const typeOrder = ['network', 'useragent', 'file', 'process', 'logic', 'reference', 'other'];
+    const groups = {};
+    typeOrder.forEach(t => { groups[t] = []; });
+    classified.forEach(d => { groups[d.type].push(d); });
+
+    let html = '';
+    typeOrder.forEach(type => {
+      if (groups[type].length === 0) return;
+      const meta = TYPE_META[type];
+      html += `<div class="detection-group">`;
+      html += `<div class="detection-group-title"><span class="dg-icon">${meta.icon}</span> ${meta.label} (${groups[type].length})</div>`;
+      groups[type].forEach(d => { html += renderDetectionItem(d); });
+      html += `</div>`;
+    });
+    return html;
+  }
+
+  /* ════════════════════════════════════════
+     PROJECT RENDERING
+     ════════════════════════════════════════ */
+  function extractRepoInfo(url) {
+    const m = url.match(/github\.com\/([^\/]+)\/([^\/\?#]+)/);
+    if (m) return { owner: m[1], repo: m[2] };
+    return null;
+  }
+
+  function renderProject(url) {
+    const repo = extractRepoInfo(url);
+    const repoLabel = repo ? `${repo.owner}/${repo.repo}` : '';
+    return `<div class="project-item">
+      <span class="proj-icon">&#128193;</span>
+      <a href="${escapeHtml(url)}" target="_blank" rel="noopener">${escapeHtml(url)}</a>
+    </div>`;
+  }
+
+  /* ════════════════════════════════════════
+     SECTION TOGGLE
+     ════════════════════════════════════════ */
+  function toggleSection(headerId) {
+    const header = document.getElementById(headerId);
+    const body = header.nextElementSibling;
+    header.classList.toggle('collapsed');
+    body.classList.toggle('collapsed');
+  }
+
+  /* ════════════════════════════════════════
+     MAIN SHOW DETAIL
+     ════════════════════════════════════════ */
+
+  function toSlug(name) {
+    return encodeURIComponent(name.toLowerCase().replace(/\s+/g, '-'));
+  }
+
+  let slugToName = {};
+  function buildSlugMap(services) {
+    slugToName = {};
+    services.forEach(name => { slugToName[toSlug(name)] = name; });
+  }
+
+  function createFallbackIcon(name, className) {
+    const div = document.createElement('div');
+    div.className = className || 'fallback-icon';
+    const words = name.trim().split(/\s+/);
+    div.textContent = words.length > 1 ? (words[0][0] + words[1][0]) : name.substring(0, 2);
+    return div;
+  }
+
   function loadC2Data() {
-    const jsonUrl = `c2_data.json?t=${new Date().getTime()}`;
-    fetch(jsonUrl, { cache: "no-store" })
-      .then(response => response.json())
+    fetch(`c2_data.json?t=${Date.now()}`, { cache: "no-store" })
+      .then(r => r.json())
       .then(data => {
         c2Data = data;
-        createTiles(Object.keys(data));
+        const services = Object.keys(data);
+        buildSlugMap(services);
+        createTiles(services);
+        document.getElementById('searchContainer').style.display = 'block';
+        handleHashRoute();
       })
-      .catch(error => {
-        console.error('Error loading c2_data.json:', error);
-      });
+      .catch(err => console.error('Error loading c2_data.json:', err));
   }
 
   function createTiles(services) {
@@ -281,113 +641,220 @@
     services.forEach(service => {
       const tile = document.createElement('div');
       tile.className = 'tile';
+      tile.setAttribute('data-service', service);
+      tile.setAttribute('data-search', service.toLowerCase());
 
-      const img = document.createElement('img');
-      img.src = serviceIcons[service];
-      img.alt = service;
-      tile.appendChild(img);
+      const iconSrc = serviceIcons[service];
+      if (iconSrc) {
+        const img = document.createElement('img');
+        img.src = iconSrc; img.alt = service; img.loading = 'lazy';
+        img.onerror = function() {
+          this.style.display = 'none';
+          this.parentNode.insertBefore(createFallbackIcon(service, 'fallback-icon'), this);
+        };
+        tile.appendChild(img);
+      } else {
+        tile.appendChild(createFallbackIcon(service, 'fallback-icon'));
+      }
 
       const title = document.createElement('div');
       title.className = 'tile-text';
       title.textContent = service;
       tile.appendChild(title);
 
-      tile.addEventListener('click', () => showDetail(service));
+      tile.addEventListener('click', () => { window.location.hash = toSlug(service); });
       tileGrid.appendChild(tile);
     });
   }
 
+  function handleHashRoute() {
+    const hash = window.location.hash.slice(1);
+    if (!hash) { goBackSilent(); return; }
+    const decoded = decodeURIComponent(hash);
+    if (slugToName[decoded]) { showDetail(slugToName[decoded]); return; }
+    const lower = decoded.toLowerCase();
+    for (const [slug, name] of Object.entries(slugToName)) {
+      if (slug.toLowerCase() === lower) { showDetail(name); return; }
+    }
+    goBackSilent();
+  }
+
+  let currentService = null;
+
   async function showDetail(serviceName) {
+    currentService = serviceName;
     const tileGrid = document.getElementById('tileGrid');
     const detailView = document.getElementById('detailView');
     const detailContent = document.getElementById('detailContent');
+    const searchContainer = document.getElementById('searchContainer');
 
     tileGrid.style.display = 'none';
-    detailView.style.display = 'flex';
+    searchContainer.style.display = 'none';
+    detailView.style.display = 'block';
     detailContent.innerHTML = '';
+
+    // Toolbar icon
+    const iconContainer = document.getElementById('toolbarIconContainer');
+    iconContainer.innerHTML = '';
+    const iconSrc = serviceIcons[serviceName];
+    if (iconSrc) {
+      const ic = document.createElement('img');
+      ic.src = iconSrc; ic.alt = serviceName; ic.className = 'detail-icon';
+      ic.onerror = function() {
+        this.style.display = 'none';
+        iconContainer.appendChild(createFallbackIcon(serviceName, 'detail-fallback-icon'));
+      };
+      iconContainer.appendChild(ic);
+    } else {
+      iconContainer.appendChild(createFallbackIcon(serviceName, 'detail-fallback-icon'));
+    }
+    document.getElementById('detailTitle').textContent = serviceName;
 
     const info = c2Data[serviceName];
     if (!info) return;
+    document.title = serviceName + ' — LOLC2';
 
-    const titleEl = document.createElement('h2');
-    titleEl.textContent = serviceName;
-    detailContent.appendChild(titleEl);
+    const projectCount = info.c2Projects ? info.c2Projects.length : 0;
+    const detectionCount = info.detection ? info.detection.length : 0;
 
-    // C2 Projects
-    const c2Label = document.createElement('div');
-    c2Label.className = 'label';
-    c2Label.textContent = 'C2 Projects:';
-    detailContent.appendChild(c2Label);
+    // Classify detections for stats
+    const classified = info.detection ? info.detection.map(classifyDetection) : [];
+    const urlCount = classified.filter(d => d.type === 'network').length;
+    const uaCount = classified.filter(d => d.type === 'useragent').length;
+    const logicCount = classified.filter(d => d.type === 'logic').length;
 
-    const c2List = document.createElement('ul');
-    info.c2Projects.forEach(url => {
-      const li = document.createElement('li');
-      li.innerHTML = `<a href="${url}" target="_blank" rel="noopener">${url}</a>`;
-      c2List.appendChild(li);
-    });
-    detailContent.appendChild(c2List);
+    // ── Stats Bar ──
+    let statsHtml = `<div class="stats-bar">
+      <div class="stat-item"><span class="stat-icon">&#128193;</span> <span class="stat-num">${projectCount}</span> C2 Project${projectCount !== 1 ? 's' : ''}</div>
+      <div class="stat-item"><span class="stat-icon">&#128269;</span> <span class="stat-num">${detectionCount}</span> Detection Rule${detectionCount !== 1 ? 's' : ''}</div>`;
+    if (urlCount > 0) statsHtml += `<div class="stat-item"><span class="stat-icon">&#128279;</span> <span class="stat-num">${urlCount}</span> Network IOC${urlCount !== 1 ? 's' : ''}</div>`;
+    if (uaCount > 0)  statsHtml += `<div class="stat-item"><span class="stat-icon">&#128269;</span> <span class="stat-num">${uaCount}</span> User-Agent${uaCount !== 1 ? 's' : ''}</div>`;
+    if (logicCount > 0) statsHtml += `<div class="stat-item"><span class="stat-icon">&#128161;</span> <span class="stat-num">${logicCount}</span> Detection Logic</div>`;
+    statsHtml += `</div>`;
 
-    // Detection
-    const detectLabel = document.createElement('div');
-    detectLabel.className = 'label';
-    detectLabel.textContent = 'Detection:';
-    detailContent.appendChild(detectLabel);
+    // ── C2 Projects Section ──
+    let projectsHtml = `<div class="section-card">
+      <div class="section-header" id="sec-projects" onclick="toggleSection('sec-projects')">
+        <span class="sec-icon">&#128193;</span> C2 Projects
+        <span class="sec-count">${projectCount}</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">`;
+    info.c2Projects.forEach(url => { projectsHtml += renderProject(url); });
+    projectsHtml += `</div></div>`;
 
-    const detectList = document.createElement('ul');
-    info.detection.forEach(det => {
-      const li = document.createElement('li');
-      li.textContent = det;
-      detectList.appendChild(li);
-    });
-    detailContent.appendChild(detectList);
+    // ── Detection Section ──
+    let detectionHtml = `<div class="section-card">
+      <div class="section-header" id="sec-detection" onclick="toggleSection('sec-detection')">
+        <span class="sec-icon">&#128269;</span> Detection Indicators
+        <span class="sec-count">${detectionCount}</span>
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="section-body">`;
+    detectionHtml += buildDetectionSection(info.detection);
+    detectionHtml += `</div></div>`;
 
-    // 1) If there's a descriptionUrl, fetch it from doc/<service>.md
+    // Compose
+    detailContent.innerHTML = statsHtml +
+      `<div class="detail-sections">${projectsHtml}${detectionHtml}<div id="descriptionSection"></div></div>`;
+
+    // ── Description (async) ──
+    const descTarget = document.getElementById('descriptionSection');
+    let mdText = null;
+
     if (info.descriptionUrl) {
-        try {
-            const mdResponse = await fetch(info.descriptionUrl);
-            if (!mdResponse.ok) throw new Error(`Failed to fetch ${info.descriptionUrl}`);
-            const mdText = await mdResponse.text();
-            const descHtml = marked.parse(mdText);
-            
-            // Add a line break
-            detailContent.appendChild(document.createElement('br'));
-
-            const descContainer = document.createElement('div');
-            descContainer.style.whiteSpace = "pre-wrap"; // Ensures Markdown formatting is preserved
-            descContainer.innerHTML = descHtml;
-            detailContent.appendChild(descContainer);
-        } catch (err) {
-            console.error(err);
-        }
+      try {
+        const mdResponse = await fetch(info.descriptionUrl);
+        if (mdResponse.ok) mdText = await mdResponse.text();
+      } catch (err) { console.error(err); }
+    } else if (info.description) {
+      mdText = info.description;
     }
-    // 2) Else if there's an inline description in JSON
-    else if (info.description) {
-        // Add a line break
-        detailContent.appendChild(document.createElement('br'));
 
-        const descHtml = marked.parse(info.description);
-        const descContainer = document.createElement('div');
-        descContainer.style.whiteSpace = "pre-wrap";
-        descContainer.innerHTML = descHtml;
-        detailContent.appendChild(descContainer);
+    if (mdText) {
+      const descHtml = marked.parse(mdText);
+      descTarget.innerHTML = `<div class="section-card">
+        <div class="section-header" id="sec-desc" onclick="toggleSection('sec-desc')">
+          <span class="sec-icon">&#128214;</span> Description & Analysis
+          <span class="chevron">&#9660;</span>
+        </div>
+        <div class="section-body">
+          <div class="desc-section">${descHtml}</div>
+        </div>
+      </div>`;
     }
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function goBack() {
+  function goBack() { window.location.hash = ''; }
+  function goBackSilent() {
+    currentService = null;
+    document.title = 'LOLC2';
     document.getElementById('tileGrid').style.display = 'grid';
+    document.getElementById('searchContainer').style.display = 'block';
     document.getElementById('detailView').style.display = 'none';
   }
 
-  loadC2Data();
-  
-  // Set marked options to preserve line breaks
-  marked.setOptions({
-    gfm: true,
-    breaks: true
+  function copyShareLink() {
+    if (!currentService) return;
+    const url = window.location.origin + window.location.pathname + '#' + toSlug(currentService);
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.querySelector('.copy-link-btn');
+      btn.innerHTML = '&#10003; Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = '&#128279; Copy Link'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta);
+      const btn = document.querySelector('.copy-link-btn');
+      btn.innerHTML = '&#10003; Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = '&#128279; Copy Link'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  function openContribute() {
+    if (!currentService) return;
+    const title = encodeURIComponent(`[Update] ${currentService} — new C2 project / detection rule`);
+    const body = encodeURIComponent(
+`## Service
+${currentService}
+
+## Type of contribution
+<!-- Check one or more -->
+- [ ] New C2 project link
+- [ ] New detection rule
+- [ ] Fix / update existing info
+- [ ] New description or documentation
+
+## Details
+<!-- Add your C2 project URL, detection rule, or description update below -->
+
+**Project URL:** 
+
+**Detection rule(s):**
+
+**Additional context:**
+`);
+    const labels = encodeURIComponent('contribution');
+    window.open(`https://github.com/lolc2/lolc2.github.io/issues/new?title=${title}&body=${body}&labels=${labels}`, '_blank');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const q = this.value.toLowerCase().trim();
+      document.querySelectorAll('.tile').forEach(tile => {
+        tile.classList.toggle('hidden', q && !tile.getAttribute('data-search').includes(q));
+      });
+    });
   });
+
+  window.addEventListener('hashchange', handleHashRoute);
+  loadC2Data();
+
+  marked.setOptions({ gfm: true, breaks: true });
 </script>
 </body>
 </html>
-
-
-
