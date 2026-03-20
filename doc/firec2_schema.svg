@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#455a64"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e65100"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1565c0"/>
+    </marker>
+    <linearGradient id="firebase-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff9800"/>
+      <stop offset="100%" stop-color="#f57c00"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="1" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="520" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" font-size="16" font-weight="700" fill="#263238">FireC2 — Command &amp; Control Flow via Firebase Realtime Database</text>
+
+  <!-- ═══ OPERATOR BOX ═══ -->
+  <rect x="30" y="180" width="180" height="140" rx="10" fill="#fff" stroke="#263238" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="30" y="180" width="180" height="32" rx="10" fill="#263238"/>
+  <rect x="30" y="202" width="180" height="10" fill="#263238"/>
+  <text x="120" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">OPERATOR</text>
+  <text x="120" y="235" text-anchor="middle" font-size="10" fill="#5f6368">console.py</text>
+  <text x="120" y="255" text-anchor="middle" font-size="9" fill="#78909c">Write tasks</text>
+  <text x="120" y="270" text-anchor="middle" font-size="9" fill="#78909c">Read results</text>
+  <text x="120" y="285" text-anchor="middle" font-size="9" fill="#78909c">Upload files</text>
+  <text x="120" y="300" text-anchor="middle" font-size="9" fill="#78909c">List agents</text>
+
+  <!-- ═══ FIREBASE BOX ═══ -->
+  <rect x="310" y="80" width="280" height="360" rx="12" fill="#fff3e0" stroke="#f57c00" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="310" y="80" width="280" height="36" rx="12" fill="url(#firebase-grad)"/>
+  <rect x="310" y="106" width="280" height="10" fill="url(#firebase-grad)"/>
+  <text x="450" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Firebase Realtime Database</text>
+  <text x="450" y="125" text-anchor="middle" font-size="9" fill="#bf360c">*.firebaseio.com</text>
+
+  <!-- DB paths -->
+  <g font-size="10" fill="#4e342e">
+    <rect x="330" y="142" width="240" height="24" rx="4" fill="#fff8e1" stroke="#ffe0b2" stroke-width="1"/>
+    <text x="345" y="158" font-family="JetBrains Mono, monospace" font-size="9">/agents/{id}/meta.json</text>
+    <text x="555" y="158" font-size="8" fill="#9e9e9e" text-anchor="end">PUT</text>
+
+    <rect x="330" y="172" width="240" height="24" rx="4" fill="#fff8e1" stroke="#ffe0b2" stroke-width="1"/>
+    <text x="345" y="188" font-family="JetBrains Mono, monospace" font-size="9">/agents/{id}/heartbeat.json</text>
+    <text x="555" y="188" font-size="8" fill="#9e9e9e" text-anchor="end">PATCH</text>
+
+    <rect x="330" y="208" width="240" height="24" rx="4" fill="#e3f2fd" stroke="#bbdefb" stroke-width="1"/>
+    <text x="345" y="224" font-family="JetBrains Mono, monospace" font-size="9">/tasks/{id}.json</text>
+    <text x="555" y="224" font-size="8" fill="#9e9e9e" text-anchor="end">GET/PUT</text>
+
+    <rect x="330" y="244" width="240" height="24" rx="4" fill="#e8f5e9" stroke="#c8e6c9" stroke-width="1"/>
+    <text x="345" y="260" font-family="JetBrains Mono, monospace" font-size="9">/results/{id}/{tid}.json</text>
+    <text x="555" y="260" font-size="8" fill="#9e9e9e" text-anchor="end">PUT</text>
+
+    <rect x="330" y="280" width="240" height="24" rx="4" fill="#fce4ec" stroke="#f8bbd0" stroke-width="1"/>
+    <text x="345" y="296" font-family="JetBrains Mono, monospace" font-size="9">/files/{id}/{path}.json</text>
+    <text x="555" y="296" font-size="8" fill="#9e9e9e" text-anchor="end">PUT</text>
+
+    <rect x="330" y="316" width="240" height="24" rx="4" fill="#f3e5f5" stroke="#e1bee7" stroke-width="1"/>
+    <text x="345" y="332" font-family="JetBrains Mono, monospace" font-size="9">/uploads/{id}.json</text>
+    <text x="555" y="332" font-size="8" fill="#9e9e9e" text-anchor="end">GET/PUT</text>
+
+    <rect x="330" y="352" width="240" height="24" rx="4" fill="#f3e5f5" stroke="#e1bee7" stroke-width="1"/>
+    <text x="345" y="368" font-family="JetBrains Mono, monospace" font-size="9">/upload_results/{id}.json</text>
+    <text x="555" y="368" font-size="8" fill="#9e9e9e" text-anchor="end">PUT</text>
+  </g>
+
+  <!-- Protocol note -->
+  <text x="450" y="410" text-anchor="middle" font-size="8" fill="#bf360c">HTTPS REST API (port 443) — JSON payloads</text>
+  <text x="450" y="423" text-anchor="middle" font-size="8" fill="#bf360c">All paths suffixed with .json</text>
+
+  <!-- ═══ AGENT BOX ═══ -->
+  <rect x="690" y="180" width="180" height="140" rx="10" fill="#fff" stroke="#c62828" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="690" y="180" width="180" height="32" rx="10" fill="#c62828"/>
+  <rect x="690" y="202" width="180" height="10" fill="#c62828"/>
+  <text x="780" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">AGENT</text>
+  <text x="780" y="235" text-anchor="middle" font-size="10" fill="#5f6368">agent.py</text>
+  <text x="780" y="255" text-anchor="middle" font-size="9" fill="#78909c">Poll for tasks</text>
+  <text x="780" y="270" text-anchor="middle" font-size="9" fill="#78909c">Execute commands</text>
+  <text x="780" y="285" text-anchor="middle" font-size="9" fill="#78909c">Write results</text>
+  <text x="780" y="300" text-anchor="middle" font-size="9" fill="#78909c">Exfiltrate files</text>
+
+  <!-- ═══ ARROWS ═══ -->
+  <!-- Operator → Firebase (tasks) -->
+  <line x1="210" y1="220" x2="305" y2="220" stroke="#1565c0" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="258" y="214" text-anchor="middle" font-size="8" fill="#1565c0" font-weight="600">PUT tasks</text>
+
+  <!-- Firebase → Operator (results) -->
+  <line x1="305" y1="260" x2="210" y2="260" stroke="#455a64" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="258" y="254" text-anchor="middle" font-size="8" fill="#455a64" font-weight="600">GET results</text>
+
+  <!-- Operator → Firebase (uploads) -->
+  <line x1="210" y1="290" x2="305" y2="335" stroke="#1565c0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-blue)"/>
+  <text x="240" y="320" text-anchor="middle" font-size="7" fill="#1565c0">upload files</text>
+
+  <!-- Firebase → Agent (tasks) -->
+  <line x1="595" y1="220" x2="685" y2="220" stroke="#455a64" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="640" y="214" text-anchor="middle" font-size="8" fill="#455a64" font-weight="600">GET tasks</text>
+
+  <!-- Agent → Firebase (results) -->
+  <line x1="685" y1="260" x2="595" y2="260" stroke="#e65100" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="640" y="254" text-anchor="middle" font-size="8" fill="#e65100" font-weight="600">PUT results</text>
+
+  <!-- Agent → Firebase (files) -->
+  <line x1="685" y1="290" x2="595" y2="295" stroke="#e65100" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-orange)"/>
+  <text x="650" y="303" text-anchor="middle" font-size="7" fill="#e65100">exfil files</text>
+
+  <!-- Agent → Firebase (heartbeat) -->
+  <line x1="685" y1="195" x2="595" y2="185" stroke="#9e9e9e" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+  <text x="640" y="183" text-anchor="middle" font-size="7" fill="#9e9e9e">heartbeat 60s</text>
+
+  <!-- ═══ LEGEND ═══ -->
+  <rect x="30" y="455" width="840" height="50" rx="6" fill="#eceff1"/>
+  <text x="50" y="475" font-size="9" font-weight="600" fill="#37474f">Detection Focus:</text>
+  <circle cx="190" cy="472" r="5" fill="#1565c0"/><text x="200" y="476" font-size="8" fill="#455a64">Non-browser → *.firebaseio.com</text>
+  <circle cx="380" cy="472" r="5" fill="#e65100"/><text x="390" y="476" font-size="8" fill="#455a64">Large base64 PUT payloads</text>
+  <circle cx="560" cy="472" r="5" fill="#9e9e9e"/><text x="570" y="476" font-size="8" fill="#455a64">Periodic beaconing (10-30s poll, 60s heartbeat)</text>
+
+  <text x="50" y="495" font-size="8" fill="#78909c">HMAC-signed tasks · base64-encoded file content · gzip compression for large outputs · random 6-char agent ID</text>
+</svg>
