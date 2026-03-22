@@ -81,10 +81,13 @@
 
     /* Toolbar */
     .detail-toolbar {
-      display: flex; align-items: center; gap: 0.75rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
       padding: 0.75rem 1rem;
       background: #263238; color: #fff;
       border-radius: 8px 8px 0 0;
+    }
+    .detail-toolbar-top {
+      display: flex; align-items: center; gap: 0.75rem;
     }
     .detail-toolbar .detail-icon { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(1); }
     .detail-toolbar .detail-fallback-icon {
@@ -95,6 +98,9 @@
     }
     .detail-toolbar .detail-title {
       font-size: 1.15rem; font-weight: 600; flex: 1; text-transform: capitalize;
+    }
+    .detail-toolbar-buttons {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
     }
     .detail-toolbar button {
       background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2);
@@ -338,11 +344,15 @@
   <div class="tile-grid" id="tileGrid"></div>
   <div class="detail-view" id="detailView">
     <div class="detail-toolbar" id="detailToolbar">
-      <div id="toolbarIconContainer"></div>
-      <div class="detail-title" id="detailTitle"></div>
-      <button class="contribute-btn" onclick="openContribute()">&#9998; Contribute</button>
-      <button class="copy-link-btn" onclick="copyShareLink()">&#128279; Copy Link</button>
-      <button onclick="goBack()">&#8592; Back</button>
+      <div class="detail-toolbar-top">
+        <div id="toolbarIconContainer"></div>
+        <div class="detail-title" id="detailTitle"></div>
+      </div>
+      <div class="detail-toolbar-buttons">
+        <button onclick="goBack()">&#8592; Back</button>
+        <button class="contribute-btn" onclick="openContribute()">&#9998; Contribute</button>
+        <button class="copy-link-btn" onclick="copyShareLink()">&#128279; Copy Link</button>
+      </div>
     </div>
     <div class="detail-content" id="detailContent"></div>
   </div>
