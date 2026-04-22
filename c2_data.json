@@ -24,7 +24,7 @@
       "url: https://t.me/s/*",
       "detection strategy: Non-browser process (python.exe, powershell.exe, curl.exe, cmd.exe, or unknown binary) making HTTPS requests to api.telegram.org",
       "detection strategy: Outbound connections to api.telegram.org from processes that are not telegram.exe or its legitimate subprocesses",
-      "detection strategy: Requests to api.telegram.org coupled with prior API calls to IP lookup services (ipify.org, ip-api.com, ifconfig.me) \u2014 common initial C2 beacon pattern",
+      "detection strategy: Requests to api.telegram.org coupled with prior API calls to IP lookup services (ipify.org, ip-api.com, ifconfig.me) — common initial C2 beacon pattern",
       "detection strategy: Process copying itself to C:\\Windows\\Temp\\svchost.exe before initiating connections to api.telegram.org (Golang backdoor pattern)",
       "detection strategy: Periodic polling pattern with GET requests to /bot*/getUpdates at regular intervals indicating command polling",
       "detection strategy: POST requests to /bot*/sendDocument containing base64-encoded or archived file payloads (data exfiltration)",
@@ -32,7 +32,7 @@
       "detection strategy: Hard-coded Telegram bot tokens or chat IDs embedded in binary strings or script files on disk",
       "detection strategy: Persistent long-duration HTTPS sessions to Telegram IP ranges (149.154.160.0/20, 91.108.4.0/22) from non-Telegram processes",
       "[Lazarus/NineRAT] Telegram Bot API used as C2 channel exploiting Log4Shell for initial access",
-      "[GRAMDOOR/UNC3313] url: https://api.telegram.org/bot2003026094:*/sendMessage \u2014 Iranian APT MuddyWater campaign",
+      "[GRAMDOOR/UNC3313] url: https://api.telegram.org/bot2003026094:*/sendMessage — Iranian APT MuddyWater campaign",
       "[Lumma Stealer] Retrieves C2 addresses from Telegram channel names, decrypts using ROT13/ROT15",
       "[DeerStealer] Uses curl.exe POST to /sendMessage endpoint with victim notification strings",
       "[Raven Stealer] Exfiltrates archived credential files via /sendDocument endpoint",
@@ -132,7 +132,7 @@
       "High-frequency polling of a specific translated site",
       "Base64 payloads in translated sites url",
       "detection strategy: Non-browser process making requests to translate.google.com or *.translate.goog domains",
-      "detection strategy: Google Translate used as proxy to access attacker-controlled pages \u2014 high-frequency polling of same translated URL"
+      "detection strategy: Google Translate used as proxy to access attacker-controlled pages — high-frequency polling of same translated URL"
     ]
   },
   "mastodon": {
@@ -245,7 +245,7 @@
       "url: https://login.windows.net/organizations/oauth2/v2.0/token",
       "[empire] User-agent: Microsoft SkyDriveSync 17.005.0107.0008 ship; Windows NT 10.0 (16299)",
       "[Excel-C2] User-agent: GoLang Client",
-      "detection strategy: Non-browser process making Microsoft Graph API calls to /me/drive/ endpoints \u2014 especially from non-Office processes",
+      "detection strategy: Non-browser process making Microsoft Graph API calls to /me/drive/ endpoints — especially from non-Office processes",
       "detection strategy: Periodic file reads from a specific OneDrive folder at regular intervals indicating C2 task polling",
       "detection strategy: Large or encoded file uploads to OneDrive via Graph API from non-Office applications (data exfiltration)",
       "detection strategy: OAuth tokens for Microsoft Graph (scope Files.ReadWrite) stored in scripts or configuration files on disk"
@@ -318,7 +318,7 @@
       "url: https://smtp.gmail.com:465",
       "detection strategy: Anomalous increase in DNS queries or connections to imap.gmail.com or smtp.gmail.com from non-email-client processes",
       "detection strategy: Non-browser process authenticating to Gmail API via OAuth tokens and reading/sending messages programmatically",
-      "detection strategy: Draft emails used as a dead-drop for C2 commands \u2014 agent polls drafts, reads instructions, deletes after execution",
+      "detection strategy: Draft emails used as a dead-drop for C2 commands — agent polls drafts, reads instructions, deletes after execution",
       "detection strategy: Gmail API queries filtering for specific labels or subjects used as command markers",
       "detection strategy: Google OAuth refresh tokens or Gmail App Passwords stored in scripts or configuration files on disk",
       "[gcat] Uses Gmail drafts as dead-drop: operator writes command in draft, agent reads and executes, writes output as new draft",
@@ -351,7 +351,7 @@
       "url: https://slack.com/api/chat.postMessage",
       "url: https://slack.com/api/chat.delete",
       "url: https://slack.com/api/files.upload?*&channels=*&thread_ts=*",
-      "detection strategy: Non-browser process making API calls to slack.com/api/ \u2014 especially from servers where Slack desktop is not installed",
+      "detection strategy: Non-browser process making API calls to slack.com/api/ — especially from servers where Slack desktop is not installed",
       "detection strategy: Slack Bot OAuth tokens (xoxb-*) or User tokens (xoxp-*) stored in scripts, environment variables, or binary strings on disk",
       "detection strategy: Periodic polling of conversations.history or conversations.replies at regular intervals indicating C2 command polling",
       "detection strategy: File uploads via files.upload API from non-Slack processes containing encoded or archived payloads"
@@ -517,8 +517,8 @@
       "[azureOutlookC2] email recipient: Bobby.Cooke@0xBoku.com",
       "[azureOutlookC2] email subject: 'Azure Outlook Command & Control'",
       "[azureOutlookC2] User-Agent: 'Mozilla'",
-      "detection strategy: Non-Outlook process making Graph API calls to /me/MailFolders/drafts/messages \u2014 draft dead-drop C2 pattern",
-      "detection strategy: Outlook Specular homepage hijacking \u2014 HKCU registry modification setting custom WebView URL for Outlook folder home pages"
+      "detection strategy: Non-Outlook process making Graph API calls to /me/MailFolders/drafts/messages — draft dead-drop C2 pattern",
+      "detection strategy: Outlook Specular homepage hijacking — HKCU registry modification setting custom WebView URL for Outlook folder home pages"
     ]
   },
   "Microsoft Power Automate": {
@@ -573,7 +573,7 @@
       "url: */FortyNorth/StageIt",
       "User-Agent: Microsoft-CryptoAPI/6.1",
       "detection strategy: Outbound connections to *.azurewebsites.net/api/* from processes that don't normally interact with Azure Functions",
-      "detection strategy: Azure Function app used as HTTP redirector \u2014 traffic pattern shows client to Azure Function to actual C2 server relay",
+      "detection strategy: Azure Function app used as HTTP redirector — traffic pattern shows client to Azure Function to actual C2 server relay",
       "detection strategy: Function app created under attacker-controlled Azure subscription serving as a proxy for Cobalt Strike or other C2 traffic",
       "detection strategy: Unusual User-Agent strings (e.g., Microsoft-CryptoAPI/6.1) in requests routed through Azure Function endpoints",
       "detection strategy: Azure Function endpoints responding with encoded or binary payloads inconsistent with legitimate API responses"
@@ -648,9 +648,9 @@
       "POST - url: https://discord.com/api/v9/guilds/*/channels",
       "GET - url: https://discord.com/api/v9/users/@me",
       "url: https://cdn.discordapp.com/attachments/*/*",
-      "detection strategy: Non-browser process making HTTPS POST requests to discord.com/api/webhooks/ \u2014 webhook URLs are write-only and require no authentication",
+      "detection strategy: Non-browser process making HTTPS POST requests to discord.com/api/webhooks/ — webhook URLs are write-only and require no authentication",
       "detection strategy: Non-Discord process (python.exe, powershell.exe, curl.exe, node.exe, compiled binaries) making API calls to discord.com/api/v9/",
-      "detection strategy: Requests to discord.com/api coupled with prior API calls to IP lookup services (ipify.org, ip-api.com) \u2014 common initial C2 beacon pattern",
+      "detection strategy: Requests to discord.com/api coupled with prior API calls to IP lookup services (ipify.org, ip-api.com) — common initial C2 beacon pattern",
       "detection strategy: Discord webhook URLs (discord.com/api/webhooks/<id>/<token>) embedded in scripts, npm packages, or binary strings on disk",
       "detection strategy: Bot token strings in Authorization headers matching pattern Bot [A-Za-z0-9._-]+ in outbound HTTPS requests to discord.com",
       "detection strategy: Malware creating a new Discord channel named after the victim hostname then posting command output as file attachments",
@@ -694,7 +694,7 @@
       "GET - url: https://lichess.org/api/stream/event",
       "GET - url: https://lichess.org/api/bot/game/stream/",
       "detection strategy: Non-browser process making API calls to lichess.org/api/ endpoints",
-      "detection strategy: Bot game moves containing encoded command data \u2014 unusual move patterns or game metadata",
+      "detection strategy: Bot game moves containing encoded command data — unusual move patterns or game metadata",
       "detection strategy: Lichess API tokens stored in scripts or binary strings on disk"
     ]
   },
@@ -734,7 +734,7 @@
       "url: https://sheets.googleapis.com/v4/spreadsheets/*:batchUpdate",
       "url: https://sheets.googleapis.com/v4/spreadsheets/*/values/*?valueInputOption=RAW",
       "url: https://sheets.googleapis.com/v4/spreadsheets/*/values:batchGet?*&ranges=*",
-      "detection strategy: Non-browser process making API calls to sheets.googleapis.com \u2014 especially batchUpdate or values endpoints",
+      "detection strategy: Non-browser process making API calls to sheets.googleapis.com — especially batchUpdate or values endpoints",
       "detection strategy: Periodic polling of specific spreadsheet cells at regular intervals indicating C2 task polling"
     ]
   },
@@ -770,7 +770,7 @@
       "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20%3D%20%27application%2Fvnd.google-apps.folder%27*",
       "url: https://www.googleapis.com/drive/v3/files?q=mimeType%20=%20%27application/octet-stream%27%20and%20name%20contains%20%27*",
       "url: https://www.googleapis.com/drive/v3/files/*",
-      "detection strategy: Non-browser process making API calls to googleapis.com/drive/ \u2014 especially from servers where Google Drive client is not installed",
+      "detection strategy: Non-browser process making API calls to googleapis.com/drive/ — especially from servers where Google Drive client is not installed",
       "detection strategy: Periodic file listing or download from a specific Drive folder at regular intervals (C2 command polling)",
       "detection strategy: OAuth refresh tokens for Google Drive scope stored in scripts, configuration files, or binary strings on disk",
       "detection strategy: Uploads of files with generic names to Google Drive via multipart upload API from non-browser processes"
@@ -823,7 +823,7 @@
       "url: https://codeload.github.com*",
       "url: https://objects.githubusercontent.com/github-production-release-asset-*",
       "url: https://gist.githubusercontent.com/*/*/raw/*",
-      "detection strategy: Non-browser process making authenticated API calls to api.github.com \u2014 especially from servers where Git/GitHub Desktop is not installed",
+      "detection strategy: Non-browser process making authenticated API calls to api.github.com — especially from servers where Git/GitHub Desktop is not installed",
       "detection strategy: Periodic polling of GitHub issue comments, gist content, or commit messages at regular intervals (C2 command polling)",
       "detection strategy: GitHub Personal Access Tokens (ghp_*) or OAuth tokens stored in scripts, environment variables, or binary strings",
       "detection strategy: Base64 or encoded content in GitHub issue comments, gist updates, or commit messages used as command/response channels",
@@ -880,7 +880,7 @@
       "detection strategy: Periodic GET requests to a specific subreddit post's comment thread at regular intervals (command polling pattern)",
       "detection strategy: Comments containing prefixed strings like 'in:' or 'out:' used as command/response markers in subreddit posts",
       "detection strategy: Reddit OAuth client credentials (client_id/secret) stored in configuration files on disk",
-      "detection strategy: Rapid sequence of POST (comment) \u2192 GET (read reply) \u2192 POST (edit to 'executed') on the same Reddit thread"
+      "detection strategy: Rapid sequence of POST (comment) → GET (read reply) → POST (edit to 'executed') on the same Reddit thread"
     ]
   },
   "dropbox": {
@@ -899,7 +899,7 @@
       "url: https://api.dropboxapi.com/2/files/search/continue_v2",
       "url: https://content.dropboxapi.com/2/files/download",
       "[empire] User-agent: Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko",
-      "detection strategy: Non-browser process making API calls to api.dropboxapi.com \u2014 especially from servers where Dropbox client is not installed",
+      "detection strategy: Non-browser process making API calls to api.dropboxapi.com — especially from servers where Dropbox client is not installed",
       "detection strategy: Periodic polling of specific Dropbox folders via list_folder at regular intervals (C2 command polling pattern)",
       "detection strategy: Dropbox OAuth tokens or API keys stored in scripts, environment variables, or binary strings on disk",
       "detection strategy: File upload to Dropbox (content.dropboxapi.com/2/files/upload) from non-Dropbox processes containing encoded payloads"
@@ -953,7 +953,7 @@
       "POST - url: https://www.virustotal.com/api/v3/urls/*/comments",
       "GET - url: https://www.virustotal.com/api/v3/urls/*/comments",
       "detection strategy: Non-browser process making authenticated API calls to virustotal.com/api/ with x-apikey header",
-      "detection strategy: Periodic polling of file or URL comments at regular intervals \u2014 agent reads commands from comments on a specific VT object",
+      "detection strategy: Periodic polling of file or URL comments at regular intervals — agent reads commands from comments on a specific VT object",
       "detection strategy: VirusTotal API keys (64-character hex strings) stored in scripts, environment variables, or binary strings on disk",
       "detection strategy: Comments posted to VT objects containing encoded or structured command/response strings rather than legitimate analysis notes"
     ]
@@ -988,11 +988,11 @@
       "POST - url: https://api.notion.com/v1/pages",
       "GET - url: https://api.notion.com/v1/pages/*",
       "POST - url: https://api.notion.com/v1/databases/*/query",
-      "detection strategy: Non-browser process making HTTPS requests to api.notion.com \u2014 legitimate Notion usage is almost exclusively via the Notion desktop/web app",
+      "detection strategy: Non-browser process making HTTPS requests to api.notion.com — legitimate Notion usage is almost exclusively via the Notion desktop/web app",
       "detection strategy: Periodic GET requests to /v1/blocks/*/children or /v1/pages/* at regular intervals (command polling pattern)",
       "detection strategy: PATCH requests to /v1/blocks/* containing encoded payloads or structured command strings (result write-back)",
       "detection strategy: Notion API integration tokens (secret_*) or Bearer tokens stored in script files, environment variables, or binary strings on disk",
-      "detection strategy: Rapid alternating pattern of GET (read page) \u2192 PATCH (update block) on the same Notion page indicating bidirectional C2 communication",
+      "detection strategy: Rapid alternating pattern of GET (read page) → PATCH (update block) on the same Notion page indicating bidirectional C2 communication",
       "[APT29/GraphicalNeutrino] Notion API abused for C2 in campaign targeting European Commission (2022)",
       "detection blog: https://mrtiepolo.medium.com/sophisticated-apt29-campaign-abuses-notion-api-to-target-the-european-commission-200188059f58"
     ]
@@ -1024,7 +1024,7 @@
       "POST - url: *files.oaiusercontent.com*",
       "GET - url: https://api.openai.com/v1/files/*/content*",
       "detection strategy: Non-browser process making API calls to api.openai.com from processes other than legitimate AI tooling",
-      "detection strategy: OpenAI Files API used to upload/download payloads \u2014 files.oaiusercontent.com accessed from non-browser processes",
+      "detection strategy: OpenAI Files API used to upload/download payloads — files.oaiusercontent.com accessed from non-browser processes",
       "detection strategy: OpenAI API keys (sk-*) stored in unexpected locations outside approved AI tooling"
     ]
   },
@@ -1055,7 +1055,7 @@
       "DELETE - url: *.blob.core.windows.net/*",
       "POST - url: *.blob.core.windows.net/*",
       "detection strategy: Non-browser process making frequent PUT/GET requests to *.blob.core.windows.net indicating tunneled traffic",
-      "detection strategy: Blob container used as SOCKS proxy relay \u2014 high-frequency small read/write operations to the same container",
+      "detection strategy: Blob container used as SOCKS proxy relay — high-frequency small read/write operations to the same container",
       "detection strategy: Unusual binary or encoded content in blob objects accessed from internal hosts"
     ]
   },
@@ -1190,6 +1190,26 @@
       "detection blog: https://censys.com/blog/etherhiding-fake-captchas-click-fix-lures-blockchain-backed-payload-delivery",
       "detection blog: https://asec.ahnlab.com/en/88009/",
       "detection blog: https://blog.xpnsec.com/ethereum-c2/"
+    ]
+  },
+  "chess.com": {
+    "descriptionUrl": "doc/chess_com.md",
+    "c2Projects": [
+      "https://github.com/OfficialScragg/CheckmateC2"
+    ],
+    "detection": [
+      "GET - url: https://www.chess.com/callback/library/collections/*/items?page=*&itemsPerPage=10000*",
+      "POST - url: https://www.chess.com/callback/library/collections/*/actions/add-from-pgn",
+      "POST - url: https://www.chess.com/callback/library/collections/*/actions/remove-items",
+      "User-Agent: Mozilla/5.0",
+      "file: .env containing AGENT_CHESS_COM_COOKIE / LISTENER_CHESS_COM_COOKIE / *_UPLOAD_TOKEN / *_CLEAR_TOKEN / *_COLLECTION_ID values",
+      "process - python.exe or unusual non-browser process making authenticated HTTPS requests to www.chess.com/callback/library/collections/*",
+      "detection strategy: Non-browser process abusing Chess.com Game Collections callback endpoints instead of normal browser-driven analysis activity",
+      "detection strategy: Repeated PGN imports with [SetUp \"1\"] and [FEN \"...\"] headers uploaded to the same collection",
+      "detection strategy: FEN payloads dominated by PNBRQ piece letters plus digit padding rather than realistic chess positions",
+      "detection strategy: Repeated use of sentinel position 7k/8/8/8/8/8/8/7K w - - 0 1 around collection polling and upload activity",
+      "detection strategy: Session cookie plus collection _token values used by scripts or implants outside a visible browser session",
+      "source: https://github.com/OfficialScragg/CheckmateC2"
     ]
   }
 }
