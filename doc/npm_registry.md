@@ -5,7 +5,7 @@ implant polls the public registry API, reads tags matching a known prefix,
 executes the decoded command, and optionally writes results back as new
 tags. No authentication is needed to read tags.
 
-![npm registry](npm_logo.png)
+![npm registry](/doc/npm_logo.png)
 
 #### How It Works
 
