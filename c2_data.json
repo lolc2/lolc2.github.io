@@ -1211,5 +1211,28 @@
       "detection strategy: Session cookie plus collection _token values used by scripts or implants outside a visible browser session",
       "source: https://github.com/OfficialScragg/CheckmateC2"
     ]
+  },
+  "npm Registry": {
+    "descriptionUrl": "doc/npm_registry.md",
+    "c2Projects": [
+      "https://github.com/ikarus981/npm-c2"
+    ],
+    "detection": [
+      "GET - url: https://registry.npmjs.org/-/package/*/dist-tags",
+      "PUT - url: https://registry.npmjs.org/-/package/*/dist-tags/*",
+      "DELETE - url: https://registry.npmjs.org/-/package/*/dist-tags/*",
+      "url: https://registry.npmjs.org/-/package/*/dist-tags",
+      "GET Requests to: https://registry.npmjs.org/-/package/*/dist-tags",
+      "PUT Requests to: https://registry.npmjs.org/-/package/*/dist-tags/*",
+      "User-Agent: Python-urllib/*",
+      "User-Agent: Go-http-client/*",
+      "User-Agent: python-requests/*",
+      "detection strategy: Non-Node.js process making periodic HTTPS GET requests to registry.npmjs.org",
+      "detection strategy: dist-tag names containing base64url-encoded payload (x64-*, arm64-*, ia32-* prefix pattern)",
+      "detection strategy: Single-package npm account with only version 1.0.0 but hundreds of rapidly-changing dist-tags",
+      "detection strategy: npm token appearing in non-Node.js binary strings or process memory",
+      "detection strategy: Periodic polling with statistical jitter to a single npm package endpoint",
+      "detection strategy: Implant process masquerading as node.exe but lacking Node.js runtime behavior"
+    ]
   }
 }
